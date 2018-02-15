@@ -49,12 +49,15 @@ THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'django_countries'
 ]
 
 # Apps specific for this project go here.
 LOCAL_APPS = [
     # custom users app
     'illuminate.users.apps.UsersConfig',
+    'illuminate.core.apps.CoreConfig',
+    'illuminate.complaints',
     # Your stuff: custom apps go here
 ]
 
