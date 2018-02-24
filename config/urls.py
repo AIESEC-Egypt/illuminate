@@ -6,11 +6,13 @@ from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
 from illuminate.complaints import views as complaints_views
+from illuminate.lc_requests import views as requests_views
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
     url(r'^complaint/$', complaints_views.home, name='complaint'),
+    url(r'^request/$', requests_views.home, name='request'),
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
 

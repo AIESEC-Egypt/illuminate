@@ -7,7 +7,7 @@ def home(request):
     form = ComplaintForm(request.POST or None)
     context = {
         "title": title,
-        "form": form,
+        "complaintform": form,
     }
     if request.user.is_authenticated() and request.user.is_staff:
         queryset = Complaint.objects.all().order_by('-timestamp')
