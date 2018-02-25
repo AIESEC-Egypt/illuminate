@@ -51,6 +51,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',  # registration
     'django_countries',
     'multiselectfield',
+    # 'django_cron',
 ]
 
 # Apps specific for this project go here.
@@ -87,7 +88,8 @@ MIGRATION_MODULES = {
 # DEBUG
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = env.bool('DJANGO_DEBUG', False)
+# DEBUG = env.bool('DJANGO_DEBUG', False)
+DEBUG = True
 
 # FIXTURE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -278,3 +280,7 @@ ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+
+CRON_CLASSES = [
+    "core.cron.UpdateAccessToken",
+]

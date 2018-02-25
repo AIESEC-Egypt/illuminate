@@ -35,10 +35,10 @@ class Complaint(models.Model):
     whatsapp_number = models. BigIntegerField(blank=False, null=False, help_text="Enter the number with country code.")
     email = models.EmailField()
     country = CountryField(blank=False,null=True, blank_label='Select home country')
-    program = models.CharField(max_length=1, blank=False, null=True, choices=PROGRAM_CHOICE)
-    host_lc = models.CharField(max_length=1, blank=False, null=True, choices=HOST_LC_CHOICE)
+    program = models.CharField(max_length=128, blank=False, null=True, choices=PROGRAM_CHOICE)
+    host_lc = models.CharField(max_length=128, blank=False, null=True, choices=HOST_LC_CHOICE)
     complaint = models.TextField(blank=False, null=False, help_text="Detailed yet to the point for us to help you best!")
-    complaint_tag = MultiSelectField(max_length=1, blank=False, null=True, choices=TAG_CHOICE)
+    complaint_tag = MultiSelectField(max_length=128, blank=False, null=True, choices=TAG_CHOICE)
     #image_upload = ImageField(upload_to=None, blank=True, help_text="Kindly add n some images if available!")
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 

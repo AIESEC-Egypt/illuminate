@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Request
 from .forms import RequestForm
 
-def home(request):
+def create_request(request):
     title = "Kindly Insert Your Request"
     form = RequestForm(request.POST or None)
     context = {
@@ -14,4 +14,4 @@ def home(request):
         context = {
             "queryset": queryset
         }
-    return render(request, "request.html", context)
+    return render(request, "lc_requests/create_request.html", context)

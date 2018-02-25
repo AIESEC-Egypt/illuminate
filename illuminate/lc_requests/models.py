@@ -3,7 +3,6 @@ from django_countries.fields import CountryField
 
 # Create your models here.
 
-
 class Request(models.Model):
     HOST_LC_CHOICE=(
         ('6TH OCTOBER', '6TH OCTOBER'), ('AAST Alexandria', 'AAST Alexandria'),

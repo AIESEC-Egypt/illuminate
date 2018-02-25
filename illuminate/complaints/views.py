@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Complaint
 from .forms import ComplaintForm
 
-def home(request):
+def create_complaint(request):
     title = "Kindly Insert Your Complaint"
     form = ComplaintForm(request.POST or None)
     context = {
@@ -14,4 +14,18 @@ def home(request):
         context = {
             "queryset": queryset
         }
-    return render(request, "complaint.html", context)
+    return render(request, "complaints/create_complaint.html", context)
+
+
+def complaints_list(request):
+
+    title = 'Complaints List'
+
+    complaints = Complaint.objects.all()
+
+    context = {
+        "title": title,
+        "complaints":complaints,
+    }
+
+    return render(request,"complaints/complaints_list.html",context)

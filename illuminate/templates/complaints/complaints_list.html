@@ -5,17 +5,17 @@
 {% block content %}
 
 
-<dev class="row">
+<div class="row">
 <div class="col-sm-6 col-sm-offset-3">
 {% if title %}
 <h1 class="text-align-center">{{ title }}</h1>
 {% endif %}
-<form method="post" action="">{% csrf_token %}
-  {{ requestform |crispy }}
 
-<input class='btn btn-primary' type="submit" value="submit" />
-</form>
+  {% for complaint in complaints %}
+    {{ complaint.full_name }}
+    {{ complaint.whatsapp_number }}
+{% endfor %}
 </div>
-</dev>
+</div>
 
 {% endblock %}

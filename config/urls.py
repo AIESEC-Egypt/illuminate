@@ -5,14 +5,15 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
-from illuminate.complaints import views as complaints_views
-from illuminate.lc_requests import views as requests_views
-
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
-    url(r'^complaint/$', complaints_views.home, name='complaint'),
-    url(r'^request/$', requests_views.home, name='request'),
+
+    # apps
+    url(r'^complaint/', include('illuminate.complaints.urls', namespace='complaint')),
+    url(r'^request/', include('illuminate.lc_requests.urls', namespace='request')),
+
+
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
 
@@ -20,8 +21,6 @@ urlpatterns = [
     url(r'^users/', include('illuminate.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
 
-    # Your stuff: custom urls includes go here
-    url(r'^complaint/$', complaints_views.home, name='complaint'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
