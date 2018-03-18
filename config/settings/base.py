@@ -51,7 +51,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',  # registration
     'django_countries',
     'multiselectfield',
-    # 'django_cron',
+    #'django_cron',
 ]
 
 # Apps specific for this project go here.
@@ -59,8 +59,7 @@ LOCAL_APPS = [
     # custom users app
     'illuminate.users.apps.UsersConfig',
     'illuminate.core.apps.CoreConfig',
-    'illuminate.complaints',
-    'illuminate.lc_requests',
+    'illuminate.forms',
     # Your stuff: custom apps go here
 ]
 
@@ -121,7 +120,6 @@ DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres://localhost/illuminate_db'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
-
 
 # GENERAL CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -273,7 +271,6 @@ LOGIN_URL = 'account_login'
 
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
-
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'

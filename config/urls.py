@@ -10,8 +10,8 @@ urlpatterns = [
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 
     # apps
-    url(r'^complaint/', include('illuminate.complaints.urls', namespace='complaint')),
-    url(r'^request/', include('illuminate.lc_requests.urls', namespace='request')),
+    url(r'^form/', include('illuminate.forms.urls', namespace='form')),
+
 
 
     # Django Admin, use {% url 'admin:index' %}
