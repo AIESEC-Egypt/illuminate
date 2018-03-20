@@ -8,15 +8,15 @@ urlpatterns = [
         name='create_complaint'
     ),
 
-    url(
-        regex=r'^view/$',
-        view=views.complaints_list,
-        name='view_complaints'
-    ),
+    # url(
+    #     regex=r'^view/$',
+    #     view=views.complaints_list,
+    #     name='view_complaints'
+    # ),
     url(
         regex=r'^request/$',
         view=views.create_request,
-        name='request_form'
+        name='create_request'
     ),
 ]
 
