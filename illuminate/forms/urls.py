@@ -13,10 +13,10 @@ urlpatterns = [
     #     view=views.complaints_list,
     #     name='view_complaints'
     # ),
-    url(
-        regex=r'^request/$',
-        view=views.create_request,
-        name='create_request'
-    ),
+    # url(
+    #     regex=r'^request/$',
+    #     view=views.create_request,
+    #     name='create_request'
+    # ),
 ]
 

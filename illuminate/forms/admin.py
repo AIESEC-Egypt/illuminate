@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import Ticket, Ep, Filler
-from .forms import ComplaintForm, EpComplaintForm
+from .models import Ticket, Ep, Filler, Position
+from .forms import ComplaintForm
 
 class ComplaintAdmin(admin.ModelAdmin):
     list_display = ['program', 'complaint', 'complaint_tag']
@@ -10,6 +10,7 @@ class ComplaintAdmin(admin.ModelAdmin):
         model = Ticket
 
 admin.site.register(Ticket)
+admin.site.register(Position)
 
 # class RequestAdmin(admin.ModelAdmin):
 #     list_display = ['full_name', 'lc', 'position', 'role',

@@ -11,8 +11,7 @@
 <h1 class="text-align-center">{{ title }}</h1>
 {% endif %}
 <form method="post" action="">{% csrf_token %}
-  {{ epcomplaintform |crispy }}
-  {{ complaintform |crispy }}
+  {{ form |crispy }}
 
 
 <input class='btn btn-primary' type="submit" value="submit" />
