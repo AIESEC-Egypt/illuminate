@@ -3,17 +3,30 @@ from django_countries.fields import CountryField
 from multiselectfield import MultiSelectField
 
 
+# Population script filled choice models:
+
 class Position(models.Model):
     name = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.name
 
 
 class Role(models.Model):
     name = models.CharField(max_length=128)
 
+    def __str__(self):
+        return self.name
+
 
 class Offices(models.Model):
     name = models.CharField(max_length=128)
 
+    def __str__(self):
+        return self.name
+
+
+# Main Models
 
 class Filler(models.Model):
 

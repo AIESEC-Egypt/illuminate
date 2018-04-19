@@ -14,23 +14,23 @@ def create_complaint(request):
     }
     epform = form(request.POST, instance=Ep())
 
-    if form.is_valid():
-        form.save()
-
-        #Ep
-        ep_name = epform.cleaned_data.get("ep_name")
-        ep_number = epform.cleaned_data.get("ep_number")
-        ep_email = epform.cleaned_data.get("ep_email")
-        ep_host_lc = epform.cleaned_data.get("host_lc")
-        ep_country = epform.cleaned_data.get("ep_country")
-        ep = Ep(
-            ep_name=ep_name,
-            ep_number=ep_number,
-            ep_email=ep_email,
-            ep_host_lc=ep_host_lc,
-            ep_country=ep_country,
-        )
-        ep.save()
+    # if form.is_valid():
+    #     form.save()
+    #
+    #     #Ep
+    #     ep_name = epform.cleaned_data.get("ep_name")
+    #     ep_number = epform.cleaned_data.get("ep_number")
+    #     ep_email = epform.cleaned_data.get("ep_email")
+    #     ep_host_lc = epform.cleaned_data.get("host_lc")
+    #     ep_country = epform.cleaned_data.get("ep_country")
+    #     ep = Ep(
+    #         ep_name=ep_name,
+    #         ep_number=ep_number,
+    #         ep_email=ep_email,
+    #         ep_host_lc=ep_host_lc,
+    #         ep_country=ep_country,
+    #     )
+    #     ep.save()
 
     return render(request, 'forms/create_complaint.html', context)
 

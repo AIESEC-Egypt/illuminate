@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Ticket, Ep, Filler, Position
+from .models import *
 from .forms import ComplaintForm
 
 class ComplaintAdmin(admin.ModelAdmin):
@@ -11,6 +11,11 @@ class ComplaintAdmin(admin.ModelAdmin):
 
 admin.site.register(Ticket)
 admin.site.register(Position)
+admin.site.register(Offices)
+admin.site.register(Role)
+
+
+
 
 # class RequestAdmin(admin.ModelAdmin):
 #     list_display = ['full_name', 'lc', 'position', 'role',
