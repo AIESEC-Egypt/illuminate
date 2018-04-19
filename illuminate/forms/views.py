@@ -1,36 +1,35 @@
 from django.shortcuts import render
-from .models import Ticket, Ep, Filler
-from .forms import ComplaintForm
-from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
+
+from illuminate.forms.models import Ticket, Ep
+from .forms import ComplaintEPForm
 
 
 def create_complaint(request):
     title = "Kindly Insert Your Complaint"
-    form = ComplaintForm
+
+    if request.method == 'POST':
+        form = ComplaintEPForm(request.POST)
+        if form.is_valid():
+            ticket = Ticket()
+            ticket.program = form.cleaned_data['program']
+            ticket.complaint = form.cleaned_data['complaint']
+            ticket.complaint_tag = form.cleaned_data['complaint_tag']
+            ticket.ticket_type = "Complaint"
+
+            EP = Ep()
+            EP.ep_name = form.cleaned_data['ep_name']
+            EP.ep_number = form.cleaned_data['ep_number']
+            EP.ep_email = form.cleaned_data['ep_email']
+            EP.save()
+            ticket.ep = EP
+            ticket.save()
+    else:
+        form = ComplaintEPForm()
+
     context = {
         "title": title,
         "form": form,
     }
-    epform = form(request.POST, instance=Ep())
-
-    # if form.is_valid():
-    #     form.save()
-    #
-    #     #Ep
-    #     ep_name = epform.cleaned_data.get("ep_name")
-    #     ep_number = epform.cleaned_data.get("ep_number")
-    #     ep_email = epform.cleaned_data.get("ep_email")
-    #     ep_host_lc = epform.cleaned_data.get("host_lc")
-    #     ep_country = epform.cleaned_data.get("ep_country")
-    #     ep = Ep(
-    #         ep_name=ep_name,
-    #         ep_number=ep_number,
-    #         ep_email=ep_email,
-    #         ep_host_lc=ep_host_lc,
-    #         ep_country=ep_country,
-    #     )
-    #     ep.save()
 
     return render(request, 'forms/create_complaint.html', context)
 
@@ -62,8 +61,6 @@ def form_valid(self, form):
     messages.success(self.request, success_url)
     return JsonResponse(
         {'details': success_url, 'success_url': reverse('login')})
-
-
 
 # from .models import Request
 # from .forms import RequestForm

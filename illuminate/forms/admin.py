@@ -1,21 +1,22 @@
 from django.contrib import admin
 
-from .models import *
 from .forms import ComplaintForm
+from .models import *
+
 
 class ComplaintAdmin(admin.ModelAdmin):
     list_display = ['program', 'complaint', 'complaint_tag']
     form = ComplaintForm
+
     class Meta:
         model = Ticket
+
 
 admin.site.register(Ticket)
 admin.site.register(Position)
 admin.site.register(Offices)
 admin.site.register(Role)
-
-
-
+admin.site.register(Ep)
 
 # class RequestAdmin(admin.ModelAdmin):
 #     list_display = ['full_name', 'lc', 'position', 'role',
@@ -28,4 +29,3 @@ admin.site.register(Role)
 #
 #
 # admin.site.register(Request)
-
