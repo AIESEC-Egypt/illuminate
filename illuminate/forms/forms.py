@@ -3,18 +3,39 @@ from django import forms
 from .models import *
 
 
+#Complaint Related Forms
 class ComplaintForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ['program', 'complaint', 'complaint_tag']
 
 
-class EPForm(forms.ModelForm):
+class CoEPForm(forms.ModelForm):
     class Meta:
         model = Ep
-        fields = ['ep_name', 'ep_number', 'ep_email']
+        fields = ['ep_name', 'ep_country', 'ep_host_lc', 'ep_number', 'ep_email']
 
 
+#Request Related Forms
+class RequestForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['program', 'requested_break', 'request_Reason']
+
+
+class ReEPForm(forms.ModelForm):
+    class Meta:
+        model = Ep
+        fields = ['ep_name', 'ep_country', 'ep_number', 'ep_email', 'ep_expa_id', 'opp_id']
+
+
+class ReFillerForm(forms.ModelForm):
+    class Meta:
+        model = Filler
+        fields = ['filler_name', 'filler_email', 'filler_lc', 'filler_position', 'filler_role']
+
+
+#Form Combining Class
 class CombinedFormBase(forms.Form):
     form_classes = []
 
@@ -54,5 +75,10 @@ class CombinedFormBase(forms.Form):
         return cleaned_data
 
 
+#combined Forms
 class ComplaintEPForm(CombinedFormBase):
-    form_classes = [ComplaintForm, EPForm]
+    form_classes = [CoEPForm, ComplaintForm]
+
+
+class RequestEPForm(CombinedFormBase):
+    form_classes = [ReFillerForm, ReEPForm, RequestForm]

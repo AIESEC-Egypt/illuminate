@@ -1,5 +1,6 @@
-from illuminate.forms.create_token import GIS
-from illuminate.forms.models import *
+from illuminate.illuminate.forms.create_token import GIS
+from illuminate.illuminate.forms.models import *
+
 import requests
 
 
@@ -9,7 +10,7 @@ def delete_everything():
     print("Positions Deleted")
     Role.objects.all().delete()
     print("Roles Deleted")
-    Offices.objects.all().delete()
+    Office.objects.all().delete()
     print("Offices Deleted")
 
 
@@ -51,8 +52,10 @@ def populate_offices():
     url = 'https://gis-api.aiesec.org/v2/committees/' + id + '.json?access_token=' + access_token
     r = requests.get(url).json()
     for i in range(0, 23):
-        name =r['suboffices'][i]['name']
-        Offices(name=name).save()
+        name = r['suboffices'][i]['name']
+        office_id = r['suboffices'][i]['id']
+        Office(name=name).save()
+        Office(office_id=office_id).save()
     print("Offices Populated")
 
 
@@ -61,6 +64,7 @@ def populate_all():
     delete_everything()
     populate_role()
     populate_positions()
+    populate_offices()
 
 
 

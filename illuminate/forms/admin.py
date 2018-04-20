@@ -4,19 +4,19 @@ from .forms import ComplaintForm
 from .models import *
 
 
-class ComplaintAdmin(admin.ModelAdmin):
-    list_display = ['program', 'complaint', 'complaint_tag']
+class TicketAdmin(admin.ModelAdmin):
+    list_display = ('ticket_type', 'program', 'timestamp')
     form = ComplaintForm
 
-    class Meta:
-        model = Ticket
 
 
 admin.site.register(Ticket)
 admin.site.register(Position)
-admin.site.register(Offices)
+admin.site.register(Office)
 admin.site.register(Role)
 admin.site.register(Ep)
+admin.site.register(Filler)
+
 
 # class RequestAdmin(admin.ModelAdmin):
 #     list_display = ['full_name', 'lc', 'position', 'role',

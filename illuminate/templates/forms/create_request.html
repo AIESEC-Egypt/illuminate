@@ -11,7 +11,7 @@
 <h1 class="text-align-center">{{ title }}</h1>
 {% endif %}
 <form method="post" action="">{% csrf_token %}
-  {{ requestform |crispy }}
+  {{ form |crispy }}
 
 <input class='btn btn-primary' type="submit" value="submit" />
 </form>

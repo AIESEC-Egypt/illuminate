@@ -19,11 +19,15 @@ class Role(models.Model):
         return self.name
 
 
-class Offices(models.Model):
-    name = models.CharField(max_length=128)
+class Office(models.Model):
+    office_name = models.CharField(max_length=128)
+    office_id = models.IntegerField(blank=True, null=True)
+    office_contact_name = models.CharField(max_length=128, blank=True, null=True)
+    office_contact_email = models.EmailField(blank=True, null=True)
+    office_contact_phone = models.BigIntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return self.office_name
 
 
 # Main Models
@@ -31,7 +35,7 @@ class Offices(models.Model):
 class Filler(models.Model):
     filler_name = models.CharField(max_length=128, blank=True, null=True, help_text="Enter Your Full Name.")
     filler_email = models.EmailField(blank=True, null=True)
-    Filler_lc = models.ForeignKey(Offices, null=True, blank=True, on_delete=models.CASCADE)
+    filler_lc = models.ForeignKey(Office, null=True, blank=True, on_delete=models.CASCADE)
     filler_position = models.ForeignKey(Position, null=True, blank=True, on_delete=models.CASCADE)
     filler_role = models.ForeignKey(Role, null=True, blank=True, on_delete=models.CASCADE)
 
@@ -44,7 +48,7 @@ class Ep(models.Model):
     ep_name = models.CharField(max_length=128, blank=True, null=True, help_text="Enter Your Full Name.")
     ep_number = models.BigIntegerField(blank=True, null=True, help_text="Enter the number with country code.")
     ep_email = models.EmailField(blank=True, null=True)
-    ep_host_lc = models.ForeignKey(Offices, null=True, blank=True, on_delete=models.CASCADE)
+    ep_host_lc = models.ForeignKey(Office, null=True, blank=True, on_delete=models.CASCADE)
 
     ep_country = CountryField(blank=True, null=True, blank_label='Select home country')
     ep_expa_id = models.IntegerField(blank=True, null=True, help_text="Enter EP ID.")
@@ -72,6 +76,7 @@ class Ticket(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     ep = models.OneToOneField(Ep, on_delete=models.CASCADE, null=True, blank=True)
+    filler = models.OneToOneField(Filler, on_delete=models.CASCADE, null=True, blank=True)
 
     # complaint
     complaint = models.TextField(blank=False, null=True, help_text="Detailed yet to the point for us to help you best!")
@@ -81,9 +86,8 @@ class Ticket(models.Model):
     # image_upload = ImageField(upload_to=None, blank=True, help_text="Kindly add some images if available!")  --STILL NEEDS WORK--
 
     # Request
-    requested_break = models.CharField(max_length=1, blank=False, null=True, choices=STEP_CHOICE)
-    request_Reason = models.TextField(blank=False, null=True,
-                                      help_text="Detailed yet to the point for us to help you best!")
+    requested_break = models.CharField(max_length=128, blank=False, null=True, choices=STEP_CHOICE)
+    request_Reason = models.TextField(blank=False, null=True, help_text="Detailed yet to the point for us to help you best!")
 
     def __str__(self):
-        return self.timestamp
+        return self.ticket_type
