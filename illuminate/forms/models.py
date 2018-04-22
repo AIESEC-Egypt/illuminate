@@ -12,6 +12,14 @@ class Position(models.Model):
         return self.name
 
 
+class Standard(models.Model):
+    name = models.CharField(max_length=128)
+    number = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+
 class Role(models.Model):
     name = models.CharField(max_length=128)
 
@@ -20,7 +28,7 @@ class Role(models.Model):
 
 
 class Office(models.Model):
-    office_name = models.CharField(max_length=128)
+    office_name = models.CharField(max_length=128, primary_key=True)
     office_id = models.IntegerField(blank=True, null=True)
     office_contact_name = models.CharField(max_length=128, blank=True, null=True)
     office_contact_email = models.EmailField(blank=True, null=True)
@@ -53,6 +61,8 @@ class Ep(models.Model):
     ep_country = CountryField(blank=True, null=True, blank_label='Select home country')
     ep_expa_id = models.IntegerField(blank=True, null=True, help_text="Enter EP ID.")
     opp_id = models.IntegerField(blank=True, null=True, help_text="Enter Opportunity ID.")
+
+    ep_lc = models.CharField(max_length=128, blank=True, null=True, help_text="Enter lc Name.")
 
     def __str__(self):
         return self.ep_name
@@ -88,6 +98,11 @@ class Ticket(models.Model):
     # Request
     requested_break = models.CharField(max_length=128, blank=False, null=True, choices=STEP_CHOICE)
     request_Reason = models.TextField(blank=False, null=True, help_text="Detailed yet to the point for us to help you best!")
+
+    #case
+    case_mail_subject = models.CharField(max_length=128, blank=False, null=True)
+    case_brief = models.TextField(blank=False, null=True, help_text="Detailed yet to the point")
+    standards = models.ManyToManyField(Standard, null=True, blank=True,)
 
     def __str__(self):
         return self.ticket_type

@@ -35,6 +35,20 @@ class ReFillerForm(forms.ModelForm):
         fields = ['filler_name', 'filler_email', 'filler_lc', 'filler_position', 'filler_role']
 
 
+#Case Related Forms
+class CaseForm(forms.ModelForm):
+    standards = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple(), queryset=Standard.objects.all())
+    class Meta:
+        model = Ticket
+        fields = ['program', 'case_mail_subject', 'case_brief', 'standards']
+
+
+class CaEPForm(forms.ModelForm):
+    class Meta:
+        model = Ep
+        fields = ['ep_name', 'ep_country', 'ep_host_lc', 'ep_lc', 'ep_expa_id', 'opp_id']
+
+
 #Form Combining Class
 class CombinedFormBase(forms.Form):
     form_classes = []
@@ -82,3 +96,8 @@ class ComplaintEPForm(CombinedFormBase):
 
 class RequestEPForm(CombinedFormBase):
     form_classes = [ReFillerForm, ReEPForm, RequestForm]
+
+
+class CaseEPForm(CombinedFormBase):
+    form_classes = [CaseForm, CaEPForm]
+

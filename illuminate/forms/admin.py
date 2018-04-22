@@ -16,6 +16,8 @@ admin.site.register(Office)
 admin.site.register(Role)
 admin.site.register(Ep)
 admin.site.register(Filler)
+admin.site.register(Standard)
+
 
 
 # class RequestAdmin(admin.ModelAdmin):

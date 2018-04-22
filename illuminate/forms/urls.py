@@ -18,5 +18,10 @@ urlpatterns = [
         view=views.create_request,
         name='create_request'
     ),
+    url(
+        regex=r'^case/$',
+        view=views.create_case,
+        name='create_case'
+    ),
 ]
 
