@@ -4,33 +4,87 @@
 {% block title %}User: {{ object.username }}{% endblock %}
 
 {% block content %}
+
+<!------ Include the above in your HEAD tag ---------->
+
 <div class="container">
+    <div class="span3 well">
+      <center>
 
-  <div class="row">
-    <div class="col-sm-12">
+          <img class="img-circle"  src={{ object.image.url }}  width="200" height="200">
+        <h3>{{ object.name }}</h3>
+        <p>({{ object.username }})</p>
 
-      <h2>{{ object.username }}</h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
-      {% endif %}
+        <p>
+          <span align="left"><strong>Number:</strong></span>
+          <span>{{ object.number }}</span>
+        </p>
+        <p>
+          <span align="left"><strong>Position:</strong></span>
+          <span>{{ object.position }}</span>
+        </p>
+        <p>
+          <span align="left"><strong>Sector:</strong></span>
+          <span>{{ object.sector }}</span>
+        </p>
+
+        {% if object == request.user %}
+          <!-- Action buttons -->
+          <div class="row">
+
+            <div class="col-sm-12">
+              <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">Edit Account</a>
+              <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
+              <!-- Your Stuff: Custom user template urls -->
+            </div>
+
+          </div>
+          <!-- End Action buttons -->
+        {% endif %}
+
+		  </center>
     </div>
-  </div>
-
-{% if object == request.user %}
-<!-- Action buttons -->
-<div class="row">
-
-  <div class="col-sm-12">
-    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
-    <!-- Your Stuff: Custom user template urls -->
-  </div>
-
 </div>
-<!-- End Action buttons -->
-{% endif %}
 
 
-</div>
+
+
+{#{% block title %}User: {{ object.username }}{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#<div class="container">#}
+{##}
+{#  <div class="row">#}
+{#    <div class="col-sm-12">#}
+{#      <img src={{ object.image.url }} height="200" width="200">#}
+{#      <h2>{{ object.username }}</h2>#}
+{#      <h5>Name:</h5>#}
+{#        <p>{{ object.name }}</p>#}
+{#      <h5>Number:</h5>#}
+{#        <p>{{ object.number }}</p>#}
+{#      <h5>Position:</h5>#}
+{#        <p>{{ object.position }}</p>#}
+{#      <h5>Sector:</h5>#}
+{#        <p>{{ object.sector }}</p>#}
+{##}
+{#    </div>#}
+{#  </div>#}
+{##}
+{#{% if object == request.user %}#}
+{#<!-- Action buttons -->#}
+{#<div class="row">#}
+{##}
+{#  <div class="col-sm-12">#}
+{#    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>#}
+{#    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>#}
+{#    <!-- Your Stuff: Custom user template urls -->#}
+{#  </div>#}
+{##}
+{#</div>#}
+{#<!-- End Action buttons -->#}
+{#{% endif %}#}
+{##}
+{##}
+{#</div>#}
 {% endblock content %}
 

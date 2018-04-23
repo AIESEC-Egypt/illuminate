@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
-
+from requests import request
 from .models import User
+from django.shortcuts import render
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -22,7 +23,7 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
 
-    fields = ['name', ]
+    fields = ['name', 'number', 'image']
 
     # we already imported User in the view code above, remember?
     model = User
@@ -38,7 +39,11 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class UserListView(LoginRequiredMixin, ListView):
-    model = User
-    # These next two lines tell the view to index lookups by username
-    slug_field = 'username'
-    slug_url_kwarg = 'username'
+
+        model = User
+
+        # These next two lines tell the view to index lookups by username
+        slug_field = 'username'
+        slug_url_kwarg = 'username'
+
+
