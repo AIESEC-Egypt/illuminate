@@ -54,11 +54,10 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'form:create_case' %}">Case</a>
             </li>
-{#    #Remove, only here for navigation#}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'about' %}">About</a>
-            </li>
+
             {% if request.user.is_authenticated %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'users:list' %}">{% trans "Users List" %}</a>
+              </li>
               <li class="nav-item"><a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
               </li>
               <li class="nav-item"><a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>

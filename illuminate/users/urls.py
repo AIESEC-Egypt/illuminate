@@ -23,4 +23,5 @@ urlpatterns = [
         view=views.UserUpdateView.as_view(),
         name='update'
     ),
+
 ]

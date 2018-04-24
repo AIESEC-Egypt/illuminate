@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="span3 well">
+
+      <center>
+        <img class="img-circle"  src={{ object.image.url }}  width="200" height="200">
+          <h3>{{ object.name }}</h3>
+          <p>({{ object.username }})</p>
+
+          <form class="form-check-inline" method="post" action="{% url 'users:adminupdate' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="control-group">
+              <div class="controls">
+                <button type="submit" class="btn btn-primary">Update</button>
+              </div>
+            </div>
+          </form>
+      </center>
+    </div>
+  </div>
+{% endblock %}
