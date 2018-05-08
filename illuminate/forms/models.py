@@ -78,9 +78,11 @@ class Ticket(models.Model):
 
     TAG_CHOICE = (('Accomodation', 'Accomodation'), ('Job Description', 'Job Description'),
                   ('Other', 'Other'),)
+    TICKET_STATE_CHOICE = (('Open', 'Open'), ('In Progress', 'In Progress'),
+                            ('Closed', 'Closed'))
 
     ticket_type = models.CharField(max_length=128, blank=False, null=True)  # complaint or Request
-    ticket_state = models.CharField(max_length=128, blank=True, null=True)  # open, in-progress, closed
+    ticket_state = models.CharField(max_length=128, blank=True, null=True, choices=TICKET_STATE_CHOICE)  # open, in-progress, closed
     comments = models.TextField(blank=True, null=True)
     program = models.CharField(max_length=1, blank=False, null=True, choices=PROGRAM_CHOICE)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)

@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}Tickets{% endblock %}
+
+{% block content %}
+
+  <style>
+
+        body {
+            margin:0;
+        }
+        #left {
+            width:50%;
+            float: left;
+        }
+
+        #right {
+            width:50%;
+            float: right;
+        }
+
+        .modal {
+          text-align: center;
+          padding: 0!important;
+        }
+
+        .modal:before {
+          content: '';
+          display: inline-block;
+          height: 100%;
+          vertical-align: middle;
+          margin-right: -4px; /* Adjusts for spacing */
+        }
+
+        .modal-dialog {
+          display: inline-block;
+          text-align: left;
+          vertical-align: middle;
+        }
+
+        .vl {
+          border-left: 1px solid ;
+          height: 50px;
+          }
+
+
+    </style>
+
+<div class="container">
+    <div class="span1 well">
+      <center>
+        <h2>Dashboard</h2>
+
+      <div id="accordion">
+
+        <!--Complaints-->
+        <div class="card">
+          <div class="card-header">
+            <a class=" collapsed card-link btn-block" data-toggle="collapse" href="#collapseOne">Complaints</a>
+          </div>
+          <div id="collapseOne" class="collapse show" data-parent="#accordion">
+            <div class="card-body">
+
+            <!--Open-->
+              <div class="col-xs-4">
+              <a><strong>Open</strong></a>
+                <div class="table">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>timestamp</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for ticket in tickets %}
+                {% ifequal ticket.ticket_type "Complaint" %}
+                  {% ifequal ticket.ticket_state "Open" %}
+                      {% block ticket %}{{ block.super }}{% endblock %}
+                  {% endifequal %}
+                {% endifequal %}
+              {% endfor %}
+              </tbody>
+        </table>
+        </div>
+              </div>
+
+            <!--In Progress-->
+              <div class="col-xs-4">
+                <a><strong>In Progress</strong></a>
+                <div class="table">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>timestamp</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for ticket in tickets %}
+                {% ifequal ticket.ticket_type "Complaint" %}
+                  {% ifequal ticket.ticket_state "In Progress" %}
+
+
+                  {% endifequal %}
+                {% endifequal %}
+              {% endfor %}
+              </tbody>
+        </table>
+      </div>
+              </div>
+
+            <!--Closed-->
+              <div class="col-xs-4">
+                <a><strong>Closed</strong></a>
+                <div class="table">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>timestamp</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for ticket in tickets %}
+                      {% ifequal ticket.ticket_type "Complaint" %}
+                        {% ifequal ticket.ticket_state "Closed" %}
+
+
+                        {% endifequal %}
+                      {% endifequal %}
+                    {% endfor %}
+                    </tbody>
+              </table>
+            </div>
+              </div>
+
+          </div>
+        </div>
+        </div>
+
+      </div>
+    </div>
+      </center>
+      </div>
+</div>
+
+      </center>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+{#        <div class="col-xs-4">#}
+{#        <div class="card">#}
+{#          <div class="card-header">#}
+{#            <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">In Progress</a>#}
+{#          </div>#}
+{#          <div id="collapseTwo" class="collapse" data-parent="#accordion">#}
+{#            <div class="card-body">#}
+{##}
+{#              <div class="table">#}
+{#          <table class="table table-bordered">#}
+{#            <thead>#}
+{#              <tr>#}
+{#                <th>ID</th>#}
+{#                <th>timestamp</th>#}
+{#              </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#              {% for ticket in tickets %}#}
+{#                {% ifequal ticket.ticket_type "Complaint" %}#}
+{#                  {% ifequal ticket.ticket_state "In Progress" %}#}
+{##}
+{#                    Ticket here#}
+{##}
+{#                  {% endifequal %}#}
+{#                {% endifequal %}#}
+{#              {% endfor %}#}
+{#              </tbody>#}
+{#        </table>#}
+{#      </div>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#        </div>#}
+{##}
+{#        <div class="col-xs-4">#}
+{#        <div class="card">#}
+{#          <div class="card-header">#}
+{#            <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">Closed</a>#}
+{#          </div>#}
+{#          <div id="collapseThree" class="collapse" data-parent="#accordion">#}
+{#            <div class="card-body">#}
+{##}
+{#              <div class="table">#}
+{#                <table class="table table-bordered">#}
+{#                  <thead>#}
+{#                    <tr>#}
+{#                      <th>ID</th>#}
+{#                      <th>timestamp</th>#}
+{#                    </tr>#}
+{#                  </thead>#}
+{#                  <tbody>#}
+{#                    {% for ticket in tickets %}#}
+{#                      {% ifequal ticket.ticket_type "Complaint" %}#}
+{#                        {% ifequal ticket.ticket_state "Closed" %}#}
+{##}
+      {#                    Ticket here#}
+{##}
+{#                        {% endifequal %}#}
+{#                      {% endifequal %}#}
+{#                    {% endfor %}#}
+{#                    </tbody>#}
+{#              </table>#}
+{#            </div>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#        </div>#}

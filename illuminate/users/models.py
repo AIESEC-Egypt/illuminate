@@ -14,7 +14,7 @@ class UserPosition(models.Model):
 
 class UserSector(models.Model):
     name = models.CharField(max_length=128)
-    tags = models.ManyToManyField()
+    # tags = models.ManyToManyField()
 
     def __str__(self):
         return self.name

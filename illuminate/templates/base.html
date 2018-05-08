@@ -45,17 +45,25 @@
             <li class="nav-item active">
               <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'form:create_request' %}">Request</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'form:create_complaint' %}">Complain</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'form:create_case' %}">Case</a>
-            </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Forms</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'form:create_request' %}">Request</a>
+                  <a class="dropdown-item" href="{% url 'form:create_complaint' %}">Complain</a>
+                  <a class="dropdown-item" href="{% url 'form:create_case' %}">Case</a>
+                </div>
+              </li>
 
             {% if request.user.is_authenticated %}
+
+              </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Tickets</a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'form:ticket_list' %}">List</a>
+                  </div>
+              </li>
+
               <li class="nav-item"><a class="nav-link" href="{% url 'users:list' %}">{% trans "Users List" %}</a>
               </li>
               <li class="nav-item"><a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
@@ -85,6 +93,54 @@
       {% block content %}
         <p>Use this document as a way to quick start any new project.</p>
       {% endblock content %}
+      {% block ticket %}
+
+    <!--Ticket view-->
+
+        <tr>
+        <td><a href="#ticketModal" data-toggle="modal" data-target="#{{ ticket.id }}Modal">{{ ticket.id }}</a></td>
+        <td>{{ ticket.timestamp }}</td>
+      </tr>
+    <!-- Modal -->
+        <div class="modal fade" id="{{ ticket.id }}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"><strong><span class="label label-warning"></span>{{ ticket.ticket_state }}</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="left">
+    {#                        <img class="img-circle"  src={{ user.image.url }}  width="150" height="150" ></a>#}
+            <h3 class="media-heading">{{ ticket.ticket_type }} no.{{ ticket.id }}</h3>
+            <span><strong>EP Name: </strong></span>
+                <span>{{ ticket.ep.ep_name }}</span>
+            <div>
+            <span><strong>State: </strong></span>
+                <span>{{ ticket.ticket_state }}</span>
+              </div>
+            <div>
+                <span><strong>Type: </strong></span>
+                <span>{{ ticket.ticket_type }}</span>
+              </div>
+            <br>
+            <div id="right">
+              <div class="vl"></div>
+
+
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-primary" href="{% url 'users:detail' user.username %}" role="button">view Account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      {% endblock ticket %}
 
     </div> <!-- /container -->
 

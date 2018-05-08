@@ -14,7 +14,11 @@ def create_complaint(request):
             ticket.complaint = form.cleaned_data['complaint']
             ticket.complaint_tag = form.cleaned_data['complaint_tag']
             ticket.ticket_type = "Complaint"
-
+            ticket.ticket_state = "Open"
+            if form.cleaned_data['ep_country'] == "Egypt":
+                ticket.complaint_type = "OGX"
+            else:
+                ticket.complaint_type = "ICX"
             ep = Ep()
             ep.ep_name = form.cleaned_data['ep_name']
             ep.ep_country = form.cleaned_data['ep_country']
@@ -47,6 +51,7 @@ def create_request(request):
             ticket.requested_break = form.cleaned_data['requested_break']
             ticket.request_Reason = form.cleaned_data['request_Reason']
             ticket.ticket_type = "Request"
+            ticket.ticket_state = "Open"
 
             ep = Ep()
             ep.ep_name = form.cleaned_data['ep_name']
@@ -91,6 +96,7 @@ def create_case(request):
             ticket.case_brief = form.cleaned_data['case_brief']
             ticket.standards = form.cleaned_data['standards']
             ticket.ticket_type = "Case"
+            ticket.ticket_state = "Open"
 
             ep = Ep()
             ep.ep_name = form.cleaned_data['ep_name']
@@ -112,4 +118,18 @@ def create_case(request):
     }
 
     return render(request, 'forms/create_case.html', context)
+
+
+def tickets_list(request):
+
+    title = 'tickets List'
+
+    Tickets = Ticket.objects.all()
+
+    context = {
+        "title": title,
+        "tickets": Tickets,
+    }
+
+    return render(request,"forms/ticket_list.html",context)
 

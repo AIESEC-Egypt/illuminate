@@ -17,5 +17,10 @@ urlpatterns = [
         view=views.create_case,
         name='create_case'
     ),
+    url(
+        regex=r'^ticket/$',
+        view=views.tickets_list,
+        name='ticket_list'
+    ),
 ]
 
