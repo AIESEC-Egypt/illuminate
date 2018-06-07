@@ -1,13 +1,50 @@
-{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
 
 
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}{% block head_title %}{% endblock head_title %}{% endblock title %}
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>{% block title %}ECB Hub| Login{% endblock %}</title>
 
-{% block content %}
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
-          {% block inner %}{% endblock %}
+   <!-- Bootstrap core CSS-->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+  <!-- This file stores project-specific CSS -->
+  <link href="{% static 'css/project.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body class="bg-dark">
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <center><div class="card-header"><h1>{% block sub_header %}{% endblock %}</h1></div></center>
+        <div class="card-body">
+            {% block content %}
+
+
+          {% endblock content %}
         </div>
-      </div>
-{% endblock %}
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+</body>
+
+</html>

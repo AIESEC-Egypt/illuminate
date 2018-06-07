@@ -56,6 +56,7 @@
               <tbody>
               {% for user in user_list %}
 {#                {% ifequal user.position  "" %}#}
+
                   <tr>
                     <td><a href="#aboutModal" data-toggle="modal" data-target="#{{ user.username }}Modal">{{ user.name }}</a></td>
                     <td>{{ user.position }}</td>
@@ -91,6 +92,7 @@
                     </div>
                   </div>
                 </div>
+
 {#                {% endifequal %}#}
               {% endfor %}
               </tbody>

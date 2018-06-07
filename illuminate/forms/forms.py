@@ -1,48 +1,60 @@
+from importlib import import_module
 from django import forms
 
 from .models import *
 
-
 #Complaint Related Forms
 class ComplaintForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ComplaintForm, self).__init__(*args, **kwargs)
+        self.fields['program'].required = True
+        self.fields['complaint'].required = True
+        self.fields['complaint_tag'].required = True
+
+
     class Meta:
         model = Ticket
         fields = ['program', 'complaint', 'complaint_tag']
-
-
 class CoEPForm(forms.ModelForm):
     class Meta:
         model = Ep
         fields = ['ep_name', 'ep_country', 'ep_host_lc', 'ep_number', 'ep_email']
 
-
 #Request Related Forms
 class RequestForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(RequestForm, self).__init__(*args, **kwargs)
+        self.fields['program'].required = True
+        self.fields['requested_break'].required = True
+        self.fields['request_Reason'].required = True
+
+
     class Meta:
         model = Ticket
         fields = ['program', 'requested_break', 'request_Reason']
-
-
 class ReEPForm(forms.ModelForm):
     class Meta:
         model = Ep
         fields = ['ep_name', 'ep_country', 'ep_number', 'ep_email', 'ep_expa_id', 'opp_id']
-
-
 class ReFillerForm(forms.ModelForm):
     class Meta:
         model = Filler
         fields = ['filler_name', 'filler_email', 'filler_lc', 'filler_position', 'filler_role']
 
-
 #Case Related Forms
 class CaseForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CaseForm, self).__init__(*args, **kwargs)
+        self.fields['program'].required = True
+        self.fields['case_mail_subject'].required = True
+        self.fields['case_brief'].required = True
+        self.fields['standards'].required = True
+
+
     standards = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple(), queryset=Standard.objects.all())
     class Meta:
         model = Ticket
         fields = ['program', 'case_mail_subject', 'case_brief', 'standards']
-
-
 class CaEPForm(forms.ModelForm):
     class Meta:
         model = Ep
@@ -88,16 +100,20 @@ class CombinedFormBase(forms.Form):
             cleaned_data.update(form.cleaned_data)
         return cleaned_data
 
-
 #combined Forms
 class ComplaintEPForm(CombinedFormBase):
     form_classes = [CoEPForm, ComplaintForm]
-
-
 class RequestEPForm(CombinedFormBase):
     form_classes = [ReFillerForm, ReEPForm, RequestForm]
-
-
 class CaseEPForm(CombinedFormBase):
     form_classes = [CaseForm, CaEPForm]
+
+
+class Ecb_Responsible_Form(CombinedFormBase):
+    class Meta:
+        model = Ticket
+        fields = ['ecb_responsible']
+
+
+
 

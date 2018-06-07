@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from .models import User, UserPosition, UserSector
+from .models import User, UserSector
 
 
 class MyUserChangeForm(UserChangeForm):
@@ -33,11 +33,10 @@ class MyUserAdmin(AuthUserAdmin):
     form = MyUserChangeForm
     add_form = MyUserCreationForm
     fieldsets = (
-            ('User Profile', {'fields': ('name', 'position', 'sector', 'number', 'image')}),
+            ('User Profile', {'fields': ('name', 'manager', 'position', 'sector', 'number', 'image')}),
     ) + AuthUserAdmin.fieldsets
-    list_display = ('name', 'email', 'position', 'sector', 'is_superuser')
+    list_display = ('name', 'email', 'position', 'manager', 'is_superuser')
     search_fields = ['name']
 
 
-admin.site.register(UserPosition)
 admin.site.register(UserSector)

@@ -51,6 +51,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',  # registration
     'django_countries',
     'multiselectfield',
+    # 'widget_tweaks',
     #'django_cron',
 ]
 
@@ -255,9 +256,10 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Some really nice defaults
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
 ACCOUNT_ADAPTER = 'illuminate.users.adapters.AccountAdapter'
@@ -266,7 +268,7 @@ SOCIALACCOUNT_ADAPTER = 'illuminate.users.adapters.SocialAccountAdapter'
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = 'users:redirect'
+LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'account_login'
 
 # SLUGLIFIER

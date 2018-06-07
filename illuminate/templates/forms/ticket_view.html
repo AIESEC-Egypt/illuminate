@@ -1,11 +1,8 @@
-{% extends "ticket_list.html" %}
-
-
-
+{% load crispy_forms_tags %}
 
 
     <tr>
-        <td><a href="#ticketModal" data-toggle="modal" data-target="#{{ ticket.id }}Modal">{{ ticket.id }}</a></td>
+        <td><a class="button "href="#ticketModal" data-toggle="modal" data-target="#{{ ticket.id }}Modal">{{ ticket.id }}</a></td>
         <td>{{ ticket.timestamp }}</td>
       </tr>
     <!-- Modal -->
@@ -19,7 +16,7 @@
             </button>
           </div>
           <div class="modal-body" id="left">
-    {#                        <img class="img-circle"  src={{ user.image.url }}  width="150" height="150" ></a>#}
+              <img class="avatar float-right" src={{ ticket.ecb_responsible.image.url }}>
             <h3 class="media-heading">{{ ticket.ticket_type }} no.{{ ticket.id }}</h3>
             <span><strong>EP Name: </strong></span>
                 <span>{{ ticket.ep.ep_name }}</span>
@@ -31,14 +28,31 @@
                 <span><strong>Type: </strong></span>
                 <span>{{ ticket.ticket_type }}</span>
               </div>
+            <div>
+                <span><strong>ECB responsible: </strong></span>
+                <span>{{ ticket.ecb_responsible }}</span>
+              </div>
+                        <div>
+                <span><strong>Time Elapsed: </strong></span>
+                <span>{{ ticket.timestamp|timesince }}</span>
+              </div>
             <br>
-            <div id="right">
-              <div class="vl"></div>
-
-
-            </div>
 
           </div>
+{#          {% if ticket.ecb_responsible == None %}#}
+{##}
+{#            <form id="set_ecb_responsible" action="" method="post">#}
+{#                {% csrf_token %}#}
+{#                {{ form | crispy }}#}
+{#                <input type="submit" value="Submit" />#}
+{##}
+{#            </form>#}
+{##}
+{#          {% else %}#}
+{##}
+{#          <h5>{{ ticket.ecb_responsible }}</h5>#}
+{##}
+{#          {% endif %}#}
           <div class="modal-footer">
             <a class="btn btn-primary" href="{% url 'users:detail' user.username %}" role="button">view Account</a>
           </div>

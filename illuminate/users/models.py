@@ -4,14 +4,6 @@ from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-
-class UserPosition(models.Model):
-    name = models.CharField(max_length=128)
-
-    def __str__(self):
-        return self.name
-
-
 class UserSector(models.Model):
     name = models.CharField(max_length=128)
     # tags = models.ManyToManyField()
@@ -22,12 +14,16 @@ class UserSector(models.Model):
 
 @python_2_unicode_compatible
 class User(AbstractUser):
+    POSITION_CHOICE = (('Chair', 'Chair'),
+                        ('Tl/Coordinator', 'Tl/Coordinator'),
+                        ('Member', 'Member'))
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
     name = models.CharField(_('Full Name'), blank=True, max_length=255)
-    position = models.OneToOneField(UserPosition, null=True, blank=True, max_length=255)
-    sector = models.ForeignKey(UserSector, null=True, blank=True, max_length=255)
+    manager = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
+    position = models.CharField( null=True, blank=True, max_length=255, choices=POSITION_CHOICE)
+    sector = models.ForeignKey(UserSector, null=True, blank=True, max_length=255, on_delete=models.CASCADE)
     number = models.BigIntegerField(blank=True, null=True, help_text="Enter the number with country code.")
     image = models.ImageField(upload_to='uploads/', default='uploads/default_image.png')
 

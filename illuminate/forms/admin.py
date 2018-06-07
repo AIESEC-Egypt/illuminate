@@ -17,6 +17,7 @@ admin.site.register(Role)
 admin.site.register(Ep)
 admin.site.register(Filler)
 admin.site.register(Standard)
+# admin.site.register(Process)
 
 
 

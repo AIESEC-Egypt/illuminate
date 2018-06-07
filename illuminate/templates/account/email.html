@@ -1,12 +1,14 @@
-
-{% extends "account/base.html" %}
-
+{% extends "base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}{% trans "Account" %}{% endblock %}
 
-{% block inner %}
+
+  {% block title %}{% trans "Account" %}{% endblock %}
+
+{% block content %}
+        <div class="row">
+        <div class="col-md-6 offset-md-3">
 <h1>{% trans "E-mail Addresses" %}</h1>
 
 {% if user.emailaddress_set.all %}
@@ -35,7 +37,7 @@
 
 <div class="form-group">
       <button class="secondaryAction btn btn-primary" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
-      <button class="secondaryAction btn btn-primary" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
+{#      <button class="secondaryAction btn btn-primary" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>#}
       <button class="primaryAction btn btn-primary" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
 </div>
 
@@ -55,8 +57,9 @@
         {{ form|crispy }}
         <button class="btn btn-primary" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
     </form>
-
-{% endblock %}
+        </div>
+      </div>
+{% endblock content %}
 
 
 {% block javascript %}

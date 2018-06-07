@@ -1,0 +1,487 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+
+  {#  cards#}
+  <div class="row">
+    <!--Complaints-->
+    <div class="col-xl-4 col-sm-6 mb-4">
+      <div class="card text-white bg-primary o-hidden h-100">
+        <div class="card-body">
+          <div class="card-body-icon">
+            <i class="fa fa-fw fa-comments"></i>
+          </div>
+          <div class="mr-5"><h6>{{ user_complaints_count }} Complaints</h6></div>
+        </div>
+        <a class="card-footer text-white clearfix small z-1" data-toggle="collapse" href="#collapsecomplaints" aria-expanded="false" aria-controls="collapsecomplaints">
+          <span class="float-left">View Details</span>
+          <span class="float-right">
+            <i class="fa fa-angle-right"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+    <!--Requests-->
+    <div class="col-xl-4 col-sm-6 mb-4">
+      <div class="card text-white bg-warning o-hidden h-100">
+        <div class="card-body">
+          <div class="card-body-icon">
+            <i class="fa fa-fw fa-list"></i>
+          </div>
+          <div class="mr-5"><h6>{{ user_requests_count }} Requests</h6></div>
+        </div>
+        <a class="card-footer text-white clearfix small z-1"  data-toggle="collapse" href="#collapserequests" aria-expanded="false" aria-controls="collapserequests">
+          <span class="float-left">View Details</span>
+          <span class="float-right">
+            <i class="fa fa-angle-right"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+    <!--Cases-->
+    <div class="col-xl-4 col-sm-6 mb-4">
+      <div class="card text-white bg-danger o-hidden h-100">
+        <div class="card-body">
+          <div class="card-body-icon">
+            <i class="fa fa-fw fa-support"></i>
+          </div>
+          <div class="mr-5"><h6>{{ user_cases_count }} Cases</h6></div>
+        </div>
+        <a class="card-footer text-white clearfix small z-1"  data-toggle="collapse" href="#collapsecases" aria-expanded="false" aria-controls="collapsecases">
+          <span class="float-left">View Details</span>
+          <span class="float-right">
+            <i class="fa fa-angle-right"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <!--Complaints-->
+  <div class="collapse" id="collapsecomplaints">
+    <div class="card bg-primary ">
+
+    <div class="card card-body">
+     <div class="row">
+       <!--Open-->
+        <div class="col-xl-4 col-sm-6 mb-3">
+        <div class="card">
+          <div class="card-header bg-primary text-white" >
+            <div class="float-left">
+              <i class="fa fa-envelope-open-o fa-lg"  aria-hidden="true"></i>
+              <span class="ml-1">Open</span>
+            </div>
+            <div class="float-right"><strong>{{ user_complaints_count_open }}</strong></div>
+          </div>
+
+          <div class="card-body">
+            <div >
+             <table class="table table-bordered table-hover" >
+               <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>timestamp</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for ticket in user_tickets %}
+                  {% ifequal ticket.ticket_type "Complaint" %}
+                    {% ifequal ticket.ticket_state "Open" %}
+
+                        {% include 'forms/ticket_view.html' %}
+
+                    {% endifequal %}
+                  {% endifequal %}
+                {% endfor %}
+              </tbody>
+             </table>
+            </div>
+          </div>
+        </div>
+        </div>
+       <!--In Progress-->
+        <div class="col-xl-4 col-sm-6 mb-3">
+        <div class="card">
+          <div class="card-header bg-primary text-white" >
+            <div class="float-left">
+              <i class="fa fa-refresh fa-lg fa-fw"></i>
+              <span class="ml-1">In Progress</span>
+            </div>
+            <div class="float-right"><strong>{{ user_complaints_count_in_progress }}</strong></div>
+          </div>
+
+          <div class="card-body">
+            <div >
+             <table class="table table-bordered table-hover">
+               <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>timestamp</th>
+                  </tr>
+              </thead>
+              <tbody>
+               {% for ticket in user_tickets %}
+                    {% ifequal ticket.ticket_type "Complaint" %}
+                      {% ifequal ticket.ticket_state "In Progress" %}
+
+                        {% include 'forms/ticket_view.html' %}
+
+                      {% endifequal %}
+                    {% endifequal %}
+                  {% endfor %}
+              </tbody>
+             </table>
+            </div>
+          </div>
+        </div>
+        </div>
+       <!--Closed-->
+        <div class="col-xl-4 col-sm-6 mb-3">
+        <div class="card">
+          <div class="card-header bg-primary text-white" >
+            <div class="float-left">
+              <i class="fa fa-times-circle-o fa-lg"></i>
+              <span class="ml-1">Closed</span>
+            </div>
+            <div class="float-right"><strong>{{ user_complaints_count_closed }}</strong></div>
+          </div>
+
+          <div class="card-body">
+            <div >
+             <table class="table table-bordered table-hover">
+               <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>timestamp</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for ticket in user_tickets %}
+                  {% ifequal ticket.ticket_type "Complaint" %}
+                    {% ifequal ticket.ticket_state "Closed" %}
+
+                      {% include 'forms/ticket_view.html' %}
+
+                    {% endifequal %}
+                  {% endifequal %}
+                {% endfor %}
+              </tbody>
+             </table>
+            </div>
+          </div>
+        </div>
+        </div>
+     </div>
+    </div>
+  </div>
+  </div>
+  <!--Requests-->
+  <div class="collapse" id="collapserequests">
+    <div class="card bg-warning ">
+    <div class="card card-body">
+     <div class="row">
+       <!--Open-->
+        <div class="col-xl-4 col-sm-6 mb-3">
+        <div class="card">
+          <div class="card-header bg-warning text-white" >
+            <div class="float-left">
+              <i class="fa fa-envelope-open-o fa-lg"  aria-hidden="true"></i>
+              <span class="ml-1">Open</span>
+            </div>
+            <div class="float-right"><strong>{{ user_requests_count_open }}</strong></div>
+          </div>
+
+          <div class="card-body">
+            <div >
+             <table class="table table-bordered table-hover">
+               <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>timestamp</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for ticket in user_tickets %}
+                  {% ifequal ticket.ticket_type "Request" %}
+                    {% ifequal ticket.ticket_state "Open" %}
+
+                        {% include 'forms/ticket_view.html' %}
+
+                    {% endifequal %}
+                  {% endifequal %}
+                {% endfor %}
+              </tbody>
+             </table>
+            </div>
+          </div>
+        </div>
+        </div>
+       <!--In Progress-->
+        <div class="col-xl-4 col-sm-6 mb-3">
+        <div class="card">
+          <div class="card-header bg-warning text-white" >
+            <div class="float-left">
+              <i class="fa fa-refresh fa-lg fa-fw"></i>
+              <span class="ml-1">In Progress</span>
+            </div>
+            <div class="float-right"><strong>{{ user_requests_count_in_progress }}</strong></div>
+          </div>
+
+          <div class="card-body">
+            <div >
+             <table class="table table-bordered table-hover">
+               <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>timestamp</th>
+                  </tr>
+              </thead>
+              <tbody>
+               {% for ticket in user_tickets %}
+                    {% ifequal ticket.ticket_type "Request" %}
+                      {% ifequal ticket.ticket_state "In Progress" %}
+
+                        {% include 'forms/ticket_view.html' %}
+
+                      {% endifequal %}
+                    {% endifequal %}
+                  {% endfor %}
+              </tbody>
+             </table>
+            </div>
+          </div>
+        </div>
+        </div>
+       <!--Closed-->
+        <div class="col-xl-4 col-sm-6 mb-3">
+        <div class="card">
+          <div class="card-header bg-warning text-white" >
+            <div class="float-left">
+              <i class="fa fa-times-circle-o fa-lg"></i>
+              <span class="ml-1">Closed</span>
+            </div>
+            <div class="float-right"><strong>{{ user_requests_count_closed }}</strong></div>
+          </div>
+
+          <div class="card-body">
+            <div >
+             <table class="table table-bordered table-hover">
+               <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>timestamp</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for ticket in user_tickets %}
+                  {% ifequal ticket.ticket_type "Request" %}
+                    {% ifequal ticket.ticket_state "Closed" %}
+
+                      {% include 'forms/ticket_view.html' %}
+
+                    {% endifequal %}
+                  {% endifequal %}
+                {% endfor %}
+              </tbody>
+             </table>
+            </div>
+          </div>
+        </div>
+        </div>
+     </div>
+    </div>
+  </div>
+  </div>
+  <!--Cases-->
+  <div class="collapse" id="collapsecases">
+    <div class="card bg-danger ">
+
+    <div class="card card-body">
+     <div class="row">
+       <!--Open-->
+        <div class="col-xl-4 col-sm-6 mb-3">
+        <div class="card">
+          <div class="card-header bg-danger text-white" >
+            <div class="float-left">
+              <i class="fa fa-envelope-open-o fa-lg"  aria-hidden="true"></i>
+              <span class="ml-1">Open</span>
+            </div>
+            <div class="float-right"><strong>{{ user_cases_count_open }}</strong></div>
+          </div>
+
+          <div class="card-body">
+            <div >
+             <table class="table table-bordered table-hover">
+               <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>timestamp</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for ticket in user_tickets %}
+                  {% ifequal ticket.ticket_type "Case" %}
+                    {% ifequal ticket.ticket_state "Open" %}
+
+                        {% include 'forms/ticket_view.html' %}
+
+                    {% endifequal %}
+                  {% endifequal %}
+                {% endfor %}
+              </tbody>
+             </table>
+            </div>
+          </div>
+        </div>
+        </div>
+       <!--In Progress-->
+        <div class="col-xl-4 col-sm-6 mb-3">
+        <div class="card">
+          <div class="card-header bg-danger text-white" >
+            <div class="float-left">
+              <i class="fa fa-refresh fa-lg fa-fw"></i>
+              <span class="ml-1">In Progress</span>
+            </div>
+            <div class="float-right"><strong>{{ user_cases_count_in_progress }}</strong></div>
+          </div>
+
+          <div class="card-body">
+            <div >
+             <table class="table table-bordered table-hover">
+               <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>timestamp</th>
+                  </tr>
+              </thead>
+              <tbody>
+               {% for ticket in user_tickets %}
+                    {% ifequal ticket.ticket_type "Case" %}
+                      {% ifequal ticket.ticket_state "In Progress" %}
+
+                        {% include 'forms/ticket_view.html' %}
+
+                      {% endifequal %}
+                    {% endifequal %}
+                  {% endfor %}
+              </tbody>
+             </table>
+            </div>
+          </div>
+        </div>
+        </div>
+       <!--Closed-->
+        <div class="col-xl-4 col-sm-6 mb-3">
+        <div class="card">
+          <div class="card-header bg-danger text-white" >
+            <div class="float-left">
+              <i class="fa fa-times-circle-o fa-lg"></i>
+              <span class="ml-1">Closed</span>
+            </div>
+            <div class="float-right"><strong>{{ user_cases_count_closed }}</strong></div>
+          </div>
+
+          <div class="card-body">
+            <div >
+             <table class="table table-bordered table-hover">
+               <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>timestamp</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for ticket in user_tickets %}
+                  {% ifequal ticket.ticket_type "Case" %}
+                    {% ifequal ticket.ticket_state "Closed" %}
+
+                      {% include 'forms/ticket_view.html' %}
+
+                    {% endifequal %}
+                  {% endifequal %}
+                {% endfor %}
+              </tbody>
+             </table>
+            </div>
+          </div>
+        </div>
+        </div>
+     </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="card">
+  <div class="row">
+
+    <div class="col-xl-2 col-sm-4 mb-2">
+      <div class="card bg-primary text-center">
+        <div class="card-header text-white bg-primary">
+          <strong>Basic Data</strong>
+        </div>
+        <div class="card-body bg-light">
+          <p>current_user: {{ current_user }}</p>
+          <p>current_user_manager: {{ current_user_manager }}</p>
+        </div>
+      </div>
+  </div>
+    <div class="col-xl-2 col-sm-4 mb-2">
+      <div class="card bg-primary text-center">
+        <div class="card-header text-white bg-primary">
+          <strong>Total absolute numbers</strong>
+        </div>
+        <div class="card-body bg-light">
+  <p>total_ticket_count: {{ total_tickets_count }}</p>
+  <p>total_complaint_count: {{ total_complaints_count }}</p>
+  <p>total_request_count: {{ total_requests_count }}</p>
+  <p>total_case_count: {{ total_cases_count }}</p>
+        </div>
+      </div>
+  </div>
+    <div class="col-xl-2 col-sm-4 mb-2">
+      <div class="card bg-primary text-center">
+        <div class="card-header text-white bg-primary">
+        <strong>Team absolute numbers</strong>
+        </div>
+        <div class="card-body bg-light">
+  <p>team_ticket_count: {{ team_tickets_count }}</p>
+  <p>team_complaint_count: {{ team_complaints_count }}</p>
+  <p>team_request_count: {{ team_requests_count }}</p>
+  <p>team_case_count: {{ team_cases_count }}</p>
+        </div>
+      </div>
+  </div>
+    <div class="col-xl-2 col-sm-4 mb-2">
+      <div class="card bg-primary text-center">
+        <div class="card-header text-white bg-primary">
+  <strong>User absolute numbers</strong>
+        </div>
+        <div class="card-body bg-light">
+  <p>user_ticket_count: {{ user_tickets_count }}</p>
+  <p>user_complaint_count: {{ user_complaints_count }}</p>
+  <p>user_request_count: {{ user_requests_count }}</p>
+  <p>user_case_count: {{ user_cases_count }}</p>
+        </div>
+      </div>
+  </div>
+    <div class="col-xl-2 col-sm-4 mb-2">
+      <div class="card bg-primary text-center">
+        <div class="card-header text-white bg-primary">
+  <strong>User to total relative numbers</strong>
+        </div>
+        <div class="card-body bg-light">
+    <p>total_Complaint_contribution: {{ total_Complaint_contribution }}</p>
+
+        </div>
+      </div>
+  </div>
+
+  </div>
+
+  </div>
+
+
+{% endblock %}

@@ -1,6 +1,5 @@
-from illuminate.illuminate.forms.create_token import GIS
-from illuminate.illuminate.forms.models import *
-
+from illuminate.forms.create_token import GIS
+from illuminate.forms.models import Position, Standard, Role, Office
 import requests
 
 
@@ -91,4 +90,4 @@ def populate_all():
     populate_standards()
 
 
-
+populate_all()

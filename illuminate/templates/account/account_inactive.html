@@ -1,12 +1,12 @@
 {% extends "account/base.html" %}
-
 {% load i18n %}
 
-{% block head_title %}{% trans "Account Inactive" %}{% endblock %}
+  {% block title %}ECB Hub| Account Inactive{% endblock %}
+  {% block sub_header %}{% trans "Account Inactive" %}{% endblock %}
 
-{% block inner %}
-<h1>{% trans "Account Inactive" %}</h1>
+      {% block content %}
 
-<p>{% trans "This account is inactive." %}</p>
-{% endblock %}
+        <p>{% trans "This account is inactive." %}</p>
+
+      {% endblock content %}
 

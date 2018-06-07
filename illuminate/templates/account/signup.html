@@ -1,23 +1,52 @@
 {% extends "account/base.html" %}
-
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+  {% block title %}ECB Hub| Sign Up{% endblock %}
+  {% block sub_header %}{% trans "Signup" %}{% endblock %}
 
-{% block inner %}
-<h1>{% trans "Sign Up" %}</h1>
+      {% block content %}
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+          {{ form|crispy }}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button class="btn btn-primary btn-block" type="submit">{% trans "Sign Up" %} &raquo;</button>
+        </form>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button class="btn btn-primary" type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="{{ login_url }}">Login</a>
+          <a class="d-block small" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+        </div>
+      {% endblock content %}
 
-{% endblock %}
+
+
+{##}
+{##}
+{##}
+{#{% extends "account/base.html" %}#}
+{##}
+{#{% load i18n %}#}
+{#{% load crispy_forms_tags %}#}
+{##}
+{#{% block head_title %}{% trans "Signup" %}{% endblock %}#}
+{##}
+{#{% block inner %}#}
+{#<h1>{% trans "Sign Up" %}</h1>#}
+{##}
+{#<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>#}
+{##}
+{#<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">#}
+{#  {% csrf_token %}#}
+{#  {{ form|crispy }}#}
+{#  {% if redirect_field_value %}#}
+{#  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />#}
+{#  {% endif %}#}
+{#  <button class="btn btn-primary" type="submit">{% trans "Sign Up" %} &raquo;</button>#}
+{#</form>#}
+{##}
+{#{% endblock %}#}
 

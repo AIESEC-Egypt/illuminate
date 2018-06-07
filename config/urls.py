@@ -4,21 +4,21 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from illuminate.analytics.views import home_view
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
-    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
+    url(r'^$', view=home_view, name='home'),
+    url(r'^base/$', TemplateView.as_view(template_name='base.html'), name='about'),
 
     # apps
-    url(r'^form/', include('illuminate.forms.urls', namespace='form')),
-
-
+    url(r'^form/', include(('illuminate.forms.urls', 'forms'), namespace='form')),
+    url(r'^analytics/', include(('illuminate.analytics.urls', 'analytics'), namespace='analytics')),
 
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
 
     # User management
-    url(r'^users/', include('illuminate.users.urls', namespace='users')),
+    url(r'^users/', include(('illuminate.users.urls', 'users'), namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
 
 

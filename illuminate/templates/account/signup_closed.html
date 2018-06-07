@@ -2,11 +2,12 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Sign Up Closed" %}{% endblock %}
+{% block title %}ECB Hub| Sign UP Closed{% endblock %}
+{% block sub_header %}{% trans "Sign Up Closed" %}{% endblock %}
 
-{% block inner %}
-<h1>{% trans "Sign Up Closed" %}</h1>
-
-<p>{% trans "We are sorry, but the sign up is currently closed." %}</p>
+{% block content %}
+  <center>
+      <p>{% trans "We are sorry, but the sign up is currently closed." %}</p>
+  </center>
 {% endblock %}
 
