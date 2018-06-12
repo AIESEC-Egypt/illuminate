@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Ticket, Ep, Filler, Office
 from .forms import ComplaintEPForm, RequestEPForm, CaseEPForm, Ecb_Responsible_Form
+from django.views.generic import UpdateView
 
 
 def create_complaint(request):
@@ -214,3 +215,29 @@ def tickets_list(request):
 
     return render(request, "forms/ticket_list.html", context)
 
+# def edit_ticket(request):
+#
+#     offices = Office.objects.order_by('office_name')
+#
+#     context = {
+#         "offices": offices,
+#     }
+#     return render(request, "forms/edit_ticket.html", context)
+#
+#
+# class SaveView(UpdateView):
+#     template_name = 'sometemplate.html'
+#     form_class = SaveForm
+#     model = SomeModel
+#
+#     # That should be all you need. If you need to do any more custom stuff
+#     # before saving the form, override the `form_valid` method, like this:
+#
+#     def form_valid(self, form):
+#         self.object = form.save(commit=False)
+#
+#         # Do any custom stuff here
+#
+#         self.object.save()
+#
+#         return render_to_response(self.template_name, self.get_context_data())

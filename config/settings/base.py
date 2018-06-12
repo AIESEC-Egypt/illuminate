@@ -51,7 +51,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',  # registration
     'django_countries',
     'multiselectfield',
-    # 'widget_tweaks',
+    'widget_tweaks',
     #'django_cron',
 ]
 

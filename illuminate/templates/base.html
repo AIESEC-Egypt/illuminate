@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load i18n widget_tweaks %}
 
 <!DOCTYPE html>
 
@@ -13,7 +14,7 @@
   <meta name="author" content="">
   <title>ECB hub| {% block title %}illuminate{% endblock title %}</title>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
   <!-- PACE-->
   <link rel="stylesheet" type="text/css" href="{% static 'plugins/PACE/themes/blue/pace-theme-flash.css' %}">
   <script type="text/javascript" src="{% static 'plugins/PACE/pace.min.js' %}"></script>
@@ -296,6 +297,7 @@
       </ul>
     </div>
   </nav>
+
   <div class="content-wrapper">
     <div class="container-fluid">
 {#      <!-- Breadcrumbs-->#}
@@ -314,6 +316,7 @@
 {#      {% endif %}#}
 
       {% block content %}
+
 
       {% endblock content %}
 
@@ -381,6 +384,7 @@
       <script src="{% static 'js/project.js' %}"></script>
 
       {% block javascript %}
+    <script src="http://malsup.github.com/jquery.form.js"></script>
 
     {% endblock javascript %}
 

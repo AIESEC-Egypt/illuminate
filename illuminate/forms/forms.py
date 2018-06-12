@@ -109,11 +109,15 @@ class CaseEPForm(CombinedFormBase):
     form_classes = [CaseForm, CaEPForm]
 
 
-class Ecb_Responsible_Form(CombinedFormBase):
+class Ecb_Responsible_Form(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ['ecb_responsible']
 
-
-
-
+# class ProcessForm(ModelForm):
+#     class Meta:
+#         model = Pro  # with attr somedata
+#         fields = ('somedata', 'someotherdata')
+#
+#     def clean_somedata(self):
+#         return sometransformation(self.cleaned_data['somedata'])

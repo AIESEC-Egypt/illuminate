@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from . import views
-urlpatterns = [
 
+urlpatterns = [
     url(
         regex=r'^complaint/$',
         view=views.create_complaint,

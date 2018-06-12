@@ -3,11 +3,6 @@
 {% block title %}Tickets{% endblock %}
 {% load crispy_forms_tags %}
 
-<style>
-
-table tbody tr:hover { background-color: red; }
-
-</style>
 
 {% block content %}
 
@@ -100,15 +95,7 @@ table tbody tr:hover { background-color: red; }
               </div>
 
               <div class="card-body">
-                <div >
-                 <table class="table table-bordered table-hover" >
-                   <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>timestamp</th>
-                      </tr>
-                  </thead>
-                  <tbody>
+
                     {% for ticket in tickets %}
                       {% ifequal ticket.ticket_type "Complaint" %}
                         {% ifequal ticket.ticket_state "Open" %}
@@ -118,11 +105,9 @@ table tbody tr:hover { background-color: red; }
                         {% endifequal %}
                       {% endifequal %}
                     {% endfor %}
-                  </tbody>
-                 </table>
-                </div>
-              </div>
+
             </div>
+              </div>
             </div>
            <!--In Progress-->
             <div class="col-xl-4 col-sm-6 mb-3">
@@ -136,15 +121,7 @@ table tbody tr:hover { background-color: red; }
               </div>
 
               <div class="card-body">
-                <div >
-                 <table class="table table-bordered table-hover">
-                   <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>timestamp</th>
-                      </tr>
-                  </thead>
-                  <tbody>
+
                    {% for ticket in tickets %}
                         {% ifequal ticket.ticket_type "Complaint" %}
                           {% ifequal ticket.ticket_state "In Progress" %}
@@ -154,9 +131,6 @@ table tbody tr:hover { background-color: red; }
                           {% endifequal %}
                         {% endifequal %}
                       {% endfor %}
-                  </tbody>
-                 </table>
-                </div>
               </div>
             </div>
             </div>
@@ -172,15 +146,7 @@ table tbody tr:hover { background-color: red; }
               </div>
 
               <div class="card-body">
-                <div >
-                 <table class="table table-bordered table-hover">
-                   <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>timestamp</th>
-                      </tr>
-                  </thead>
-                  <tbody>
+
                     {% for ticket in tickets %}
                       {% ifequal ticket.ticket_type "Complaint" %}
                         {% ifequal ticket.ticket_state "Closed" %}
@@ -190,9 +156,7 @@ table tbody tr:hover { background-color: red; }
                         {% endifequal %}
                       {% endifequal %}
                     {% endfor %}
-                  </tbody>
-                 </table>
-                </div>
+
               </div>
             </div>
             </div>
@@ -217,15 +181,7 @@ table tbody tr:hover { background-color: red; }
               </div>
 
               <div class="card-body">
-                <div >
-                 <table class="table table-bordered table-hover">
-                   <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>timestamp</th>
-                      </tr>
-                  </thead>
-                  <tbody>
+
                     {% for ticket in tickets %}
                       {% ifequal ticket.ticket_type "Request" %}
                         {% ifequal ticket.ticket_state "Open" %}
@@ -235,9 +191,7 @@ table tbody tr:hover { background-color: red; }
                         {% endifequal %}
                       {% endifequal %}
                     {% endfor %}
-                  </tbody>
-                 </table>
-                </div>
+
               </div>
             </div>
             </div>
@@ -253,15 +207,7 @@ table tbody tr:hover { background-color: red; }
               </div>
 
               <div class="card-body">
-                <div >
-                 <table class="table table-bordered table-hover">
-                   <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>timestamp</th>
-                      </tr>
-                  </thead>
-                  <tbody>
+
                    {% for ticket in tickets %}
                         {% ifequal ticket.ticket_type "Request" %}
                           {% ifequal ticket.ticket_state "In Progress" %}
@@ -271,9 +217,7 @@ table tbody tr:hover { background-color: red; }
                           {% endifequal %}
                         {% endifequal %}
                       {% endfor %}
-                  </tbody>
-                 </table>
-                </div>
+
               </div>
             </div>
             </div>
@@ -289,15 +233,7 @@ table tbody tr:hover { background-color: red; }
               </div>
 
               <div class="card-body">
-                <div >
-                 <table class="table table-bordered table-hover">
-                   <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>timestamp</th>
-                      </tr>
-                  </thead>
-                  <tbody>
+
                     {% for ticket in tickets %}
                       {% ifequal ticket.ticket_type "Request" %}
                         {% ifequal ticket.ticket_state "Closed" %}
@@ -307,9 +243,7 @@ table tbody tr:hover { background-color: red; }
                         {% endifequal %}
                       {% endifequal %}
                     {% endfor %}
-                  </tbody>
-                 </table>
-                </div>
+
               </div>
             </div>
             </div>
@@ -335,15 +269,7 @@ table tbody tr:hover { background-color: red; }
               </div>
 
               <div class="card-body">
-                <div >
-                 <table class="table table-bordered table-hover">
-                   <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>timestamp</th>
-                      </tr>
-                  </thead>
-                  <tbody>
+
                     {% for ticket in tickets %}
                       {% ifequal ticket.ticket_type "Case" %}
                         {% ifequal ticket.ticket_state "Open" %}
@@ -353,9 +279,7 @@ table tbody tr:hover { background-color: red; }
                         {% endifequal %}
                       {% endifequal %}
                     {% endfor %}
-                  </tbody>
-                 </table>
-                </div>
+
               </div>
             </div>
             </div>
@@ -371,15 +295,7 @@ table tbody tr:hover { background-color: red; }
               </div>
 
               <div class="card-body">
-                <div >
-                 <table class="table table-bordered table-hover">
-                   <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>timestamp</th>
-                      </tr>
-                  </thead>
-                  <tbody>
+
                    {% for ticket in tickets %}
                         {% ifequal ticket.ticket_type "Case" %}
                           {% ifequal ticket.ticket_state "In Progress" %}
@@ -389,9 +305,7 @@ table tbody tr:hover { background-color: red; }
                           {% endifequal %}
                         {% endifequal %}
                       {% endfor %}
-                  </tbody>
-                 </table>
-                </div>
+
               </div>
             </div>
             </div>
@@ -407,15 +321,7 @@ table tbody tr:hover { background-color: red; }
               </div>
 
               <div class="card-body">
-                <div >
-                 <table class="table table-bordered table-hover">
-                   <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>timestamp</th>
-                      </tr>
-                  </thead>
-                  <tbody>
+
                     {% for ticket in tickets %}
                       {% ifequal ticket.ticket_type "Case" %}
                         {% ifequal ticket.ticket_state "Closed" %}
@@ -425,9 +331,7 @@ table tbody tr:hover { background-color: red; }
                         {% endifequal %}
                       {% endifequal %}
                     {% endfor %}
-                  </tbody>
-                 </table>
-                </div>
+
               </div>
             </div>
             </div>
