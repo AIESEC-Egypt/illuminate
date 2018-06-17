@@ -3,6 +3,15 @@ from django import forms
 
 from .models import *
 
+
+class InitialProcessForm(forms.ModelForm):
+    class Meta:
+        model = Process
+        fields = ['process_type', 'process_state']
+        widgets = {'process_type': forms.HiddenInput(),
+                   'process_state': forms.HiddenInput()}
+
+
 #Complaint Related Forms
 class ComplaintForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -19,6 +28,17 @@ class CoEPForm(forms.ModelForm):
     class Meta:
         model = Ep
         fields = ['ep_name', 'ep_country', 'ep_host_lc', 'ep_number', 'ep_email']
+
+class ComplaintUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['ecb_responsible', 'standards']
+class ComplaintProcessForm(forms.ModelForm):
+    class Meta:
+        model = Process
+        fields = ('set_ecb_responsible', 'choose_standards', 'contacted_host', 'host_contact_output', 'contacted_ep',
+                  'ep_contact_output', 'complaint_state', 'reason', 'process_state')
+
 
 #Request Related Forms
 class RequestForm(forms.ModelForm):
@@ -102,22 +122,13 @@ class CombinedFormBase(forms.Form):
 
 #combined Forms
 class ComplaintEPForm(CombinedFormBase):
-    form_classes = [CoEPForm, ComplaintForm]
+    form_classes = [CoEPForm, ComplaintForm, InitialProcessForm]
 class RequestEPForm(CombinedFormBase):
-    form_classes = [ReFillerForm, ReEPForm, RequestForm]
+    form_classes = [ReFillerForm, ReEPForm, RequestForm, InitialProcessForm]
 class CaseEPForm(CombinedFormBase):
-    form_classes = [CaseForm, CaEPForm]
+    form_classes = [CaseForm, CaEPForm, InitialProcessForm]
+
+# class ComplaintProcessUpdateForm(CombinedFormBase):
+#     form_classes = [ComplaintUpdateForm, ComplaintProcessForm]
 
 
-class Ecb_Responsible_Form(forms.ModelForm):
-    class Meta:
-        model = Ticket
-        fields = ['ecb_responsible']
-
-# class ProcessForm(ModelForm):
-#     class Meta:
-#         model = Pro  # with attr somedata
-#         fields = ('somedata', 'someotherdata')
-#
-#     def clean_somedata(self):
-#         return sometransformation(self.cleaned_data['somedata'])

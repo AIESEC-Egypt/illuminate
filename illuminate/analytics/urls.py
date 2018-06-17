@@ -8,7 +8,7 @@ urlpatterns = [
         name='user_analytics'
     ),
     url(
-        regex=r'^lc/(?P<office_name>\w+)/$',
+        regex=r'^lc/(?P<office_name>.+)/$',
         view=views.lc_analytics,
         name='lc_analytics'
     ),

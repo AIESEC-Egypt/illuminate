@@ -45,7 +45,7 @@ def user_anlaytics(request):
     user_cases_count_closed = user_tickets.filter(ticket_type='Case', ticket_state='Closed').count()
 
     # user relative numbers
-    total_Complaint_contribution = (user_complaints_count/total_complaints_count)*100
+    # total_Complaint_contribution = (user_complaints_count/total_complaints_count)*100
 
 
     context = {
@@ -85,7 +85,7 @@ def user_anlaytics(request):
         "user_cases_count_in_progress": user_cases_count_in_progress,
         "user_cases_count_closed": user_cases_count_closed,
 
-        "total_Complaint_contribution": total_Complaint_contribution,
+        # "total_Complaint_contribution": total_Complaint_contribution,
 
     }
 

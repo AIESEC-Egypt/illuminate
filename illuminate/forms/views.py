@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from .models import Ticket, Ep, Filler, Office
-from .forms import ComplaintEPForm, RequestEPForm, CaseEPForm, Ecb_Responsible_Form
+from .models import Ticket, Ep, Filler, Office, Process
+from .forms import ComplaintEPForm, RequestEPForm, CaseEPForm, ComplaintProcessForm
 from django.views.generic import UpdateView
+from django.shortcuts import render_to_response
 
 
 def create_complaint(request):
@@ -30,14 +31,14 @@ def create_complaint(request):
             ep.ep_number = form.cleaned_data['ep_number']
             ep.ep_email = form.cleaned_data['ep_email']
 
-            # process = Process()
-            # process.process_type = ticket.ticket_type
-            # process.process_state = ticket.ticket_state
+            process = Process()
+            process.process_type = ticket.ticket_type
+            process.process_state = ticket.ticket_state
 
             ep.save()
-            # process.save()
+            process.save()
             ticket.ep = ep
-            # ticket.process = process
+            ticket.process = process
             ticket.save()
     else:
         form = ComplaintEPForm()
@@ -83,17 +84,16 @@ def create_request(request):
             filler.filler_position = form.cleaned_data['filler_position']
             filler.filler_role = form.cleaned_data['filler_role']
 
-            # process = Process()
-            # process.process_type = ticket.ticket_type
-            # process.process_state = ticket.ticket_state
-
+            process = Process()
+            process.process_type = ticket.ticket_type
+            process.process_state = ticket.ticket_state
 
             filler.save()
             ep.save()
-            # process.save()
+            process.save()
             ticket.filler = filler
             ticket.ep = ep
-            # ticket.process = process
+            ticket.process = process
             ticket.save()
     else:
         form = RequestEPForm()
@@ -131,15 +131,14 @@ def create_case(request):
             ep.ep_email = form.cleaned_data['opp_id']
             ep.ep_host_lc = form.cleaned_data['ep_host_lc']
 
-            # process = Process()
-            # process.process_type = ticket.ticket_type
-            # process.process_state = ticket.ticket_state
-
+            process = Process()
+            process.process_type = ticket.ticket_type
+            process.process_state = ticket.ticket_state
 
             ep.save()
-            # process.save()
+            process.save()
             ticket.ep = ep
-            # ticket.process = process
+            ticket.process = process
             ticket.save()
     else:
         form = CaseEPForm()
@@ -181,22 +180,11 @@ def tickets_list(request):
     user_cases_count_in_progress = user.filter(ticket_type='Case', ticket_state='In Progress').count()
     user_cases_count_closed = user.filter(ticket_type='Case', ticket_state='Closed').count()
 
-    if request.method == 'POST':
-        form = Ecb_Responsible_Form(request.POST)
-        if form.is_valid():
-            ticket = Ticket()
-            ticket.ecb_responsible = form.cleaned_data['ecb_responsible']
-
-            ticket.save()
-    else:
-        form = Ecb_Responsible_Form()
-
     context = {
         "offices": offices,
 
         "title": title,
         "tickets": tickets,
-        "form": form,
         "user_complaints_count": user_complaints_count,
         "user_requests_count": user_requests_count,
         "user_cases_count": user_cases_count,
@@ -215,29 +203,46 @@ def tickets_list(request):
 
     return render(request, "forms/ticket_list.html", context)
 
-# def edit_ticket(request):
-#
-#     offices = Office.objects.order_by('office_name')
-#
-#     context = {
-#         "offices": offices,
-#     }
-#     return render(request, "forms/edit_ticket.html", context)
-#
-#
-# class SaveView(UpdateView):
-#     template_name = 'sometemplate.html'
-#     form_class = SaveForm
-#     model = SomeModel
-#
-#     # That should be all you need. If you need to do any more custom stuff
-#     # before saving the form, override the `form_valid` method, like this:
-#
-#     def form_valid(self, form):
-#         self.object = form.save(commit=False)
-#
-#         # Do any custom stuff here
-#
-#         self.object.save()
-#
-#         return render_to_response(self.template_name, self.get_context_data())
+
+class ComplaintUpdate(UpdateView):
+    template_name = 'forms/edit_ticket.html'
+    form_class = ComplaintProcessForm
+    model = Process
+
+    # That should be all you need. If you need to do any more custom stuff
+    # before saving the form, override the `form_valid` method, like this:
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+
+        ticket = Ticket()
+        ticket.ecb_responsible = form.cleaned_data['ecb_responsible']
+        ticket.standards = form.cleaned_data['standards']
+
+        process = Process()
+        process.set_ecb_responsible = form.cleaned_data['set_ecb_responsible']
+        process.choose_standards = form.cleaned_data['choose_standards']
+        process.contacted_host = form.cleaned_data['contacted_host']
+        process.host_contact_output = form.cleaned_data['host_contact_output']
+        process.contacted_ep = form.cleaned_data['contacted_ep']
+        process.ep_contact_output = form.cleaned_data['ep_contact_output']
+        process.complaint_state = form.cleaned_data['complaint_state']
+        process.reason = form.cleaned_data['reason']
+        process.process_state = form.cleaned_data['process_state']
+
+        ticket.ticket_state = process.process_state
+
+        process.save()
+        ticket.process = process
+        ticket.save()
+
+        self.object.save()
+
+        return render_to_response(self.template_name, self.get_context_data())
+
+    def get_context_data(self, **kwargs):
+        context = super(ComplaintUpdate, self).get_context_data(**kwargs)
+
+        context['ticket'] = Ticket.objects.get(process=self.object) #whatever you would like
+
+        return context

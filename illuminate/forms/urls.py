@@ -22,5 +22,10 @@ urlpatterns = [
         view=views.tickets_list,
         name='ticket_list'
     ),
+    url(
+        regex=r'^edit/ticket/(?P<pk>[0-9]+)/$',
+        view=views.ComplaintUpdate.as_view(),
+        name='edit_ticket'
+    ),
 ]
 
