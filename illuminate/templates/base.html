@@ -30,6 +30,12 @@
   <!-- This file stores project-specific CSS -->
   <link href="{% static 'css/project.css' %}" rel="stylesheet">
 
+  <!-- highchart CDN -->
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+<!-- Morris Chart-->
+  <link rel="stylesheet" type="text/css" href="{% static 'plugins/morris.js/morris.css' %}">
+
+
 
 {#font awesome 4.0 CDN#}
 
@@ -44,21 +50,23 @@
 
 </head>
 
- <style>
+<style>
 
-        .dropdown-menu {
-          right: 0;
-          left:inherit;
-        }
+    .dropdown-menu {
+      right: 0;
+      left:inherit;
+    }
 
-          .avatar {
-            vertical-align: middle;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-        }
+      .avatar {
+        vertical-align: middle;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
 
-    </style>
+</style>
+{% block style %}
+{% endblock style %}
 
 <body class="fixed-nav sticky-footer bg-dark " id="page-top">
   <!-- Navigation-->
@@ -89,9 +97,9 @@
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="{% url 'form:ticket_list' %}">
             <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Tables</span>
+            <span class="nav-link-text">Tickets List</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Forms">
@@ -119,9 +127,6 @@
           <ul class="sidenav-second-level collapse" id="collapseAdminPages">
             <li>
               <a href="{% url 'users:list' %}">User List</a>
-            </li>
-            <li>
-              <a href="{% url 'form:ticket_list' %}">Ticket List</a>
             </li>
           </ul>
         </li>
@@ -269,7 +274,7 @@
 {#        account#}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle mr-lg-2" id="avatarDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img class="avatar" alt="avatar" src={{ user.image.url }}>
+          <span class="mr-lg-2">{{ user.username }}</span><img class="avatar" alt="avatar" src={{ user.image.url }}>
           </a>
           <div class="dropdown-menu col-auto" aria-labelledby="avatarDropdown">
             <a class="dropdown-item" href="{% url 'users:detail' request.user.username  %}">
@@ -324,7 +329,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Copyright © AIESEC in Egypt 2018</small>
+          <small>Copyright © AIESEC in Egypt 2018 | Developed By M.Mokhles</small>
         </div>
       </div>
     </footer>
@@ -368,11 +373,14 @@
     <script src="{% static 'vendor/datatables/jquery.dataTables.js' %}"></script>
     <script src="{% static 'vendor/datatables/dataTables.bootstrap4.js' %}"></script>
     <!-- Custom scripts for all pages-->
-    <script src="{% static 'js/sb-admin.min.js' %}"></script>
-    <!-- Custom scripts for this page-->
-    <script src="{% static 'js/sb-admin-datatables.min.js' %}"></script>
-    <script src="{% static 'js/sb-admin-charts.min.js' %}"></script>
-    <!-- Malihu Scrollbar-->
+    <script src="{% static 'js/sb-admin.js' %}"></script>
+      <script src="{% static 'js/sb-admin-charts.js' %}"></script>
+    <script src="{% static 'js/sb-admin-datatables.js' %}"></script>
+    <script src="{% static 'js/project.js' %}"></script>
+
+      <script src="{% static 'vendor/chart.js/chart.bundle.js' %}"></script>
+          <script src="{% static 'vendor/chart.js/chart.js' %}"></script>
+      <!-- Malihu Scrollbar-->
     <script type="text/javascript" src="{% static 'plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' %}"></script>
       <!-- Required by Bootstrap v4 beta -->
 {#      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>#}

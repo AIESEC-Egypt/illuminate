@@ -28,7 +28,7 @@
           <span>{{ object.sector }}</span>
         </p>
 
-        {% if object == request.user %}
+        {% if object == request.user or request.user.position == "Chair" %}
           <!-- Action buttons -->
           <div class="row">
 

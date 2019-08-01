@@ -4,13 +4,25 @@
 
 {% block content %}
 
-  <h1>{{ ticket.id }}</h1>
+<div class="container-fluid">
 
-<div class="row">
-<div class="col-sm-6 col-sm-offset-3">
+  <div class="row">
+  <div class="col-sm-8">
+
+   <h1>{{ ticket.ticket_state}}</h1>
+
+   <p>{{ ticket.date_created }}</p>
+   <p>{{ ticket.date_open}}</p>
+   <p>{{ ticket.date_in_progress}}</p>
+   <p>{{ ticket.date_closed}}</p>
+
+  </div>
+
+<div class="col-sm-4">
 {% if title %}
 <h1 class="text-align-center">{{ title }}</h1>
 {% endif %}
+
 <form method="post" action="">{% csrf_token %}
   {{ form |crispy }}
 
@@ -19,7 +31,7 @@
 </form>
 </div>
 </div>
-
+</div>
 {% endblock %}
 {% block javascript %}
 

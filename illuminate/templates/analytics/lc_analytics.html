@@ -1,11 +1,118 @@
 {% extends "base.html" %}
 {% load static i18n %}
+{% load static %}
 {% block title %}{{ lc_name }} Analytics{% endblock %}
 
 {% block content %}
 
   <p>complaints count: {{ lc_complaints_count }}</p>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="widget">
+                            <div class="widget-heading">
+                                <h3 class="widget-title">IGV Chart - 2016</h3>
+                            </div>
+                            <div class="widget-body">
+                                <div id="igv-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
+{% endblock %}
+{% block javascript %}
+      <!-- Morris Chart-->
+    <script type="text/javascript" src="{% static 'plugins/morris.js/morris.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/raphael/raphael-min.js' %}"></script>
+   <script type="text/javascript">
+        $(document).ready(function () {
+            var e = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            Morris.Line({
+                element: "igv-chart",
+                data: [
+                    {
+                        date: "2016-02",
+                        app: {{ lc_complaints_count }},
+                        rea: {{ lc_complaints_count }}
+                    },
+                    {
+                        date: "2016-03",
+                        app: {{ lc_complaints_count }},
+                        rea: {{ lc_complaints_count }}
+                    },
+                    {
+                        date: "2016-04",
+                        app: {{ lc_complaints_count }},
+                        rea: {{ lc_complaints_count }}
+                    },
+                    {
+                        date: "2016-05",
+                        app: {{ lc_complaints_count }},
+                        rea: {{ lc_complaints_count }}
+                    },
+                    {
+                        date: "2016-06",
+                        app: {{ lc_complaints_count }},
+                        rea: {{ lc_complaints_count }}
+                    },
+                    {
+                        date: "2016-07",
+                        app: {{ lc_complaints_count }},
+                        rea: {{ lc_complaints_count }}
+                    },
+                    {
+                        date: "2016-08",
+                        app: {{ lc_complaints_count }},
+                        rea: {{ lc_complaints_count }}
+                    },
+                    {
+                        date: "2016-09",
+                        app: {{ lc_complaints_count }},
+                        rea: {{ lc_complaints_count }}
+                    },
+                    {
+                        date: "2016-10",
+                        app: {{ lc_complaints_count }},
+                        rea: {{ lc_complaints_count }}
+                    },
+                    {
+                        date: "2016-11",
+                        app: {{ lc_complaints_count }},
+                        rea: {{ lc_complaints_count }}
+                    },
+                    {
+                        date: "2016-12",
+                        app: {{ lc_complaints_count }},
+                        rea: {{ lc_complaints_count }}
+                    },
+                    {
+                        date: "2017-01",
+                        app: {{ lc_complaints_count }},
+                        rea: {{ lc_complaints_count }}
+                    }
+                ],
+                xkey: "date",
+                ykeys: ["app", "rea"],
+                labels: ["Approved", "Realized"],
+                hideHover: "auto",
+                lineColors: ["#000", "#f85a40"],
+                behaveLikeLine: !0,
+                lineWidth: 2,
+                pointSize: 4,
+                gridLineColor: "#f1f1f1",
+                gridTextColor: "#9a9a9a",
+                gridTextSize: 11,
+                gridTextFamily: "'Poppins', sans-serif",
+                resize: !0,
+                xLabels: "month",
+                xLabelFormat: function (a) {
+                    return e[a.getMonth()]
+                },
+                dateFormat: function (a) {
+                    return e[new Date(a).getMonth()]
+                }
+            })
+    </script>
 
 {% endblock %}

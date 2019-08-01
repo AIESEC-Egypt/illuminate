@@ -117,7 +117,16 @@ MANAGERS = ADMINS
 # Uses django-environ to accept uri format
 # See: https://django-environ.readthedocs.io/en/latest/#supported-types
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres://localhost/illuminate_db'),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'illuminate_db',
+        'USER': 'postgres',
+        'PASSWORD': 'mokhles55',
+        'HOST': 'localhost',
+        'PORT': ''
+    }
+
+    # 'default': env.db('DATABASE_URL', default='postgres://localhost/illuminate_db'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 

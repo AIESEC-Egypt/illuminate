@@ -21,6 +21,7 @@ class MyUserCreationForm(UserCreationForm):
 
     def clean_username(self):
         username = self.cleaned_data["username"]
+
         try:
             User.objects.get(username=username)
         except User.DoesNotExist:
@@ -28,15 +29,15 @@ class MyUserCreationForm(UserCreationForm):
         raise forms.ValidationError(self.error_messages['duplicate_username'])
 
 
-@admin.register(User)
-class MyUserAdmin(AuthUserAdmin):
-    form = MyUserChangeForm
-    add_form = MyUserCreationForm
-    fieldsets = (
-            ('User Profile', {'fields': ('name', 'manager', 'position', 'sector', 'number', 'image')}),
-    ) + AuthUserAdmin.fieldsets
-    list_display = ('name', 'email', 'position', 'manager', 'is_superuser')
-    search_fields = ['name']
+# @admin.register(User)
+# class MyUserAdmin(AuthUserAdmin):
+#     form = MyUserChangeForm
+#     add_form = MyUserCreationForm
+#     fieldsets = (
+#             ('User Profile', {'fields': ('username', 'manager', 'position', 'sector', 'number', 'image')}),
+#     ) + AuthUserAdmin.fieldsets
+#     list_display = ('username', 'email', 'position', 'manager', 'is_superuser')
+#     search_fields = ['name']
 
 
 admin.site.register(UserSector)

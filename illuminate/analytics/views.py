@@ -1,7 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import django.db.models
 from illuminate.forms.models import *
-
 
 def user_anlaytics(request):
 
@@ -117,13 +116,54 @@ def lc_analytics(request, office_name):
 
     return render(request, "analytics/lc_analytics.html", context)
 
+
 def home_view(request):
 
-    offices = Office.objects.order_by('office_name')
+    if request.user.is_authenticated():
 
-    context = {
-        "offices": offices,
+        offices = Office.objects.order_by('office_name')
+        tickets = Ticket.objects.all()
 
-    }
+        current_user = request.user
 
-    return render(request, "pages/home.html", context)
+        user = Ticket.objects.filter(ecb_responsible=current_user)
+
+        # complaints data
+        user_complaints_count = tickets.filter(ticket_type='Complaint').count()
+        user_complaints_count_open = tickets.filter(ticket_type='Complaint', ticket_state='Open').count()
+        user_complaints_count_in_progress = tickets.filter(ticket_type='Complaint', ticket_state='In Progress').count()
+        user_complaints_count_closed = tickets.filter(ticket_type='Complaint', ticket_state='Closed').count()
+
+        # requests data
+        user_requests_count = tickets.filter(ticket_type='Request').count()
+        user_requests_count_open = tickets.filter(ticket_type='Request', ticket_state='Open').count()
+        user_requests_count_in_progress = tickets.filter(ticket_type='Request', ticket_state='In Progress').count()
+        user_requests_count_closed = tickets.filter(ticket_type='Request', ticket_state='Closed').count()
+
+        # cases data
+        user_cases_count = tickets.filter(ticket_type='Case').count()
+        user_cases_count_open = tickets.filter(ticket_type='Case', ticket_state='Open').count()
+        user_cases_count_in_progress = tickets.filter(ticket_type='Case', ticket_state='In Progress').count()
+        user_cases_count_closed = tickets.filter(ticket_type='Case', ticket_state='Closed').count()
+
+        context = {
+            "offices": offices,
+            "tickets": tickets,
+            "user_complaints_count": user_complaints_count,
+            "user_requests_count": user_requests_count,
+            "user_cases_count": user_cases_count,
+
+            "user_complaints_count_open": user_complaints_count_open,
+            "user_complaints_count_in_progress": user_complaints_count_in_progress,
+            "user_complaints_count_closed": user_complaints_count_closed,
+            "user_requests_count_open": user_requests_count_open,
+            "user_requests_count_in_progress": user_requests_count_in_progress,
+            "user_requests_count_closed": user_requests_count_closed,
+            "user_cases_count_open": user_cases_count_open,
+            "user_cases_count_in_progress": user_cases_count_in_progress,
+            "user_cases_count_closed": user_cases_count_closed,
+        }
+
+        return render(request, "pages/home.html", context)
+    else:
+        return redirect("accounts/login")

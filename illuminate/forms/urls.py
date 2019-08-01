@@ -23,9 +23,19 @@ urlpatterns = [
         name='ticket_list'
     ),
     url(
-        regex=r'^edit/ticket/(?P<pk>[0-9]+)/$',
+        regex=r'^edit/ticket/complaint/(?P<pk>[0-9]+)/$',
         view=views.ComplaintUpdate.as_view(),
-        name='edit_ticket'
+        name='edit_complaint'
+    ),
+    url(
+        regex=r'^edit/ticket/request/(?P<pk>[0-9]+)/$',
+        view=views.RequestUpdate.as_view(),
+        name='edit_request'
+    ),
+    url(
+        regex=r'^edit/ticket/case/(?P<pk>[0-9]+)/$',
+        view=views.CaseUpdate.as_view(),
+        name='edit_case'
     ),
 ]
 

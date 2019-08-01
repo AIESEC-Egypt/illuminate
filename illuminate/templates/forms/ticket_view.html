@@ -14,6 +14,7 @@
                 </div>
 {#        <td>{{ ticket.timestamp }}</td>#}
 {#      </tr>#}
+
     <!-- Modal -->
     <div class="modal fade" id="{{ ticket.id }}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -43,28 +44,29 @@
               </div>
                         <div>
                 <span><strong>Time Elapsed: </strong></span>
-                <span>{{ ticket.timestamp|timesince }}</span>
+                <span>{{ ticket.date_created|timesince }}</span>
               </div>
             <br>
 
           </div>
-{#          {% if ticket.ecb_responsible == None %}#}
-{##}
-{#            <form id="set_ecb_responsible" action="" method="post">#}
-{#                {% csrf_token %}#}
-{#                {{ form | crispy }}#}
-{#                <input type="submit" value="Submit" />#}
-{##}
-{#            </form>#}
-{##}
-{#          {% else %}#}
-{##}
-{#          <h5>{{ ticket.ecb_responsible }}</h5>#}
-{##}
-{#          {% endif %}#}
-          <div class="modal-footer">
-            <a class="btn btn-primary" href="{% url 'form:edit_ticket' ticket.id %}" role="button">edit ticket</a>
-          </div>
+            {% ifequal ticket.ticket_type "Complaint" %}
+              <div class="modal-footer">
+                <a class="btn btn-primary" href="{% url 'form:edit_complaint' ticket.id %}" role="button">edit ticket</a>
+              </div>
+            {% endifequal %}
+
+            {% ifequal ticket.ticket_type "Request" %}
+              <div class="modal-footer">
+                <a class="btn btn-primary" href="{% url 'form:edit_request' ticket.id %}" role="button">edit ticket</a>
+              </div>
+            {% endifequal %}
+
+            {% ifequal ticket.ticket_type "Case" %}
+              <div class="modal-footer">
+                <a class="btn btn-primary" href="{% url 'form:edit_case' ticket.id %}" role="button">edit ticket</a>
+              </div>
+            {% endifequal %}
+
         </div>
       </div>
     </div>

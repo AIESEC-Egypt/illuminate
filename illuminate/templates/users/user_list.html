@@ -4,40 +4,6 @@
 
 {% block content %}
 
-  <style>
-        body {
-            margin:0;
-        }
-        #left {
-            width:50%;
-            float: left;
-        }
-
-        #right {
-            width:50%;
-            float: right;
-        }
-
-        .modal {
-          text-align: center;
-          padding: 0!important;
-        }
-
-        .modal:before {
-          content: '';
-          display: inline-block;
-          height: 100%;
-          vertical-align: middle;
-          margin-right: -4px; /* Adjusts for spacing */
-        }
-
-        .modal-dialog {
-          display: inline-block;
-          text-align: left;
-          vertical-align: middle;
-        }
-
-    </style>
 
 <div class="container">
     <div class="span1 well">
@@ -58,7 +24,7 @@
 {#                {% ifequal user.position  "" %}#}
 
                   <tr>
-                    <td><a href="#aboutModal" data-toggle="modal" data-target="#{{ user.username }}Modal">{{ user.name }}</a></td>
+                    <td><a href="#aboutModal" data-toggle="modal" data-target="#{{ user.username }}Modal">{{ user.username }}</a></td>
                     <td>{{ user.position }}</td>
                     <td>{{ user.sector }}</td>
                   </tr>

@@ -4,13 +4,6 @@ from django import forms
 from .models import *
 
 
-class InitialProcessForm(forms.ModelForm):
-    class Meta:
-        model = Process
-        fields = ['process_type', 'process_state']
-        widgets = {'process_type': forms.HiddenInput(),
-                   'process_state': forms.HiddenInput()}
-
 
 #Complaint Related Forms
 class ComplaintForm(forms.ModelForm):
@@ -20,10 +13,9 @@ class ComplaintForm(forms.ModelForm):
         self.fields['complaint'].required = True
         self.fields['complaint_tag'].required = True
 
-
     class Meta:
         model = Ticket
-        fields = ['program', 'complaint', 'complaint_tag']
+        fields = ['program', 'complaint']
 class CoEPForm(forms.ModelForm):
     class Meta:
         model = Ep
@@ -32,12 +24,12 @@ class CoEPForm(forms.ModelForm):
 class ComplaintUpdateForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        fields = ['ecb_responsible', 'standards']
-class ComplaintProcessForm(forms.ModelForm):
-    class Meta:
-        model = Process
-        fields = ('set_ecb_responsible', 'choose_standards', 'contacted_host', 'host_contact_output', 'contacted_ep',
-                  'ep_contact_output', 'complaint_state', 'reason', 'process_state')
+        fields = ['ticket_state', 'set_ecb_responsible', 'ecb_responsible', 'choose_standards',
+                  'standards', 'contacted_host', 'host_contact_output', 'contacted_ep', 'ep_contact_output',
+                  'complaint_state', 'outcome_reason']
+        widgets = {'ticket_state': forms.HiddenInput()
+
+                   }
 
 
 #Request Related Forms
@@ -61,6 +53,14 @@ class ReFillerForm(forms.ModelForm):
         model = Filler
         fields = ['filler_name', 'filler_email', 'filler_lc', 'filler_position', 'filler_role']
 
+class RequestUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['ticket_state', 'set_ecb_responsible', 'ecb_responsible', 'sent_to_icb', 'request_confirmation',
+                  'outcome_reason']
+        widgets = {'ticket_state': forms.HiddenInput()}
+
+
 #Case Related Forms
 class CaseForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -70,15 +70,21 @@ class CaseForm(forms.ModelForm):
         self.fields['case_brief'].required = True
         self.fields['standards'].required = True
 
-
-    standards = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple(), queryset=Standard.objects.all())
+    # standards = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple(), queryset=Standard.objects.all())
     class Meta:
         model = Ticket
         fields = ['program', 'case_mail_subject', 'case_brief', 'standards']
 class CaEPForm(forms.ModelForm):
     class Meta:
         model = Ep
-        fields = ['ep_name', 'ep_country', 'ep_host_lc', 'ep_lc', 'ep_expa_id', 'opp_id']
+        fields = ['ep_name', 'ep_number', 'ep_country', 'ep_host_lc', 'ep_lc', 'ep_expa_id', 'opp_id']
+
+class CaseUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['ticket_state', 'set_ecb_responsible', 'ecb_responsible', 'action_taken', 'icb_escalated',
+                  'oca_file', 'case_result', 'outcome', 'amount', 'currency', 'invoice']
+        widgets = {'ticket_state': forms.HiddenInput()}
 
 
 #Form Combining Class
@@ -122,13 +128,10 @@ class CombinedFormBase(forms.Form):
 
 #combined Forms
 class ComplaintEPForm(CombinedFormBase):
-    form_classes = [CoEPForm, ComplaintForm, InitialProcessForm]
+    form_classes = [CoEPForm, ComplaintForm]
 class RequestEPForm(CombinedFormBase):
-    form_classes = [ReFillerForm, ReEPForm, RequestForm, InitialProcessForm]
+    form_classes = [ReFillerForm, ReEPForm, RequestForm]
 class CaseEPForm(CombinedFormBase):
-    form_classes = [CaseForm, CaEPForm, InitialProcessForm]
-
-# class ComplaintProcessUpdateForm(CombinedFormBase):
-#     form_classes = [ComplaintUpdateForm, ComplaintProcessForm]
+    form_classes = [CaseForm, CaEPForm]
 
 
